@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Приложение</string>
+    <string name="count_initial_value">0</string>
+    <string name="button_label">Send</string>
+    <string name="toast_message">Hurra!</string>
+    <string name="input_placeholder">Write a message</string>
+    <string name="title_activity_map_page">Map</string>
+    <string name="google_maps_key">AIzaSyA4h0-dleui7a3W3R8_wbQW6sKXNMO8fh0</string>
+</resources>
