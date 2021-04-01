@@ -34,9 +34,9 @@ public class UserActivity extends AppCompatActivity {
         if (userId > 0) {
             // получаем элемент по id из бд
             adapter.open();
-            User user = adapter.getUser(userId);
-            nameBox.setText(String.valueOf(user.getName()));
-            yearBox.setText(String.valueOf(user.getYear()));
+            Place place = adapter.getUser(userId);
+            nameBox.setText(String.valueOf(place.getName()));
+            yearBox.setText(String.valueOf(place.getYear()));
             adapter.close();
         } else {
             // скрываем кнопку удаления
@@ -48,13 +48,13 @@ public class UserActivity extends AppCompatActivity {
 
         int name = Integer.parseInt(nameBox.getText().toString());
         int year = Integer.parseInt(yearBox.getText().toString());
-        User user = new User(userId, name, year);
+        Place place = new Place(userId, name, year);
 
         adapter.open();
         if (userId > 0) {
-            adapter.update(user);
+            adapter.update(place);
         } else {
-            adapter.insert(user);
+            adapter.insert(place);
         }
         adapter.close();
         goHome();
@@ -68,7 +68,7 @@ public class UserActivity extends AppCompatActivity {
     }
     private void goHome(){
         // переход к главной activity
-        Intent intent = new Intent(this, db.class);
+        Intent intent = new Intent(this, MarkersPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }

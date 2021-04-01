@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     // Обработчик нажатия для перехода к активити профиля
     public void buttonClickProfile(View view) {
         System.out.println("The *Profile* button is pressed");
-        Intent intent = new Intent(MainActivity.this, db.class);
+        Intent intent = new Intent(MainActivity.this, MarkersPage.class);
         startActivity(intent);
 
     }

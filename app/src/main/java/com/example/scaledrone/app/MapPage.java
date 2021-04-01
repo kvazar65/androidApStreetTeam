@@ -1,10 +1,8 @@
 package com.example.scaledrone.app;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,11 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MapPage extends FragmentActivity implements OnMapReadyCallback {
 
@@ -58,16 +52,13 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback {
         makeMarkerFromDatabase();
     }
 
-    private void makeMarkerFromDatabase(){
-        List<User> users = databaseAdapter.getUsers();
-        List<LatLng> cords = new ArrayList<>();
-        for (User user : users) {
-            cords.add(new LatLng(user.getName(), user.getYear()));
+    private void makeMarkerFromDatabase() {
+        List<Place> places = databaseAdapter.getUsers();
+        for (Place place : places) {
+            LatLng position = new LatLng(place.getName(), place.getYear());
+            mMap.addMarker(new MarkerOptions().position(position).title(String.valueOf(place.getLabel())));
         }
-        for (LatLng position : cords) {
-            mMap.addMarker(new MarkerOptions().position(position).title("Marker in position from list"));
-        }
-        LatLng msc = new LatLng(55,37);
+        LatLng msc = new LatLng(55, 37);
         //TODO
         mMap.moveCamera(CameraUpdateFactory.newLatLng(msc));
     }
@@ -78,5 +69,12 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback {
         Intent intent = new Intent(MapPage.this, MainActivity.class);
         startActivity(intent);
 
+    }
+
+    // Обработчик нажатия кнопки "назад"
+    public void markersClick(View view) {
+        System.out.println("The *Back* button is pressed");
+        Intent intent = new Intent(MapPage.this, MarkersPage.class);
+        startActivity(intent);
     }
 }

@@ -52,7 +52,7 @@
 
         </activity>
 
-        <activity android:name="com.example.scaledrone.app.db">
+        <activity android:name="com.example.scaledrone.app.MarkersPage">
 
         </activity>
 

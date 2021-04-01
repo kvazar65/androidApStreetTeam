@@ -11,10 +11,10 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class db extends AppCompatActivity {
+public class MarkersPage extends AppCompatActivity {
 
     private ListView userList;
-    ArrayAdapter<User> arrayAdapter;
+    ArrayAdapter<Place> arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +25,10 @@ public class db extends AppCompatActivity {
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user =arrayAdapter.getItem(position);
-                if(user!=null) {
+                Place place =arrayAdapter.getItem(position);
+                if(place !=null) {
                     Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-                    intent.putExtra("id", user.getId());
+                    intent.putExtra("id", place.getId());
                     startActivity(intent);
                 }
             }
@@ -41,9 +41,9 @@ public class db extends AppCompatActivity {
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
 
-        List<User> users = adapter.getUsers();
+        List<Place> places = adapter.getUsers();
 
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, places);
         userList.setAdapter(arrayAdapter);
         adapter.close();
     }

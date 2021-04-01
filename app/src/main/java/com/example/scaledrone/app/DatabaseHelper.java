@@ -10,6 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String TABLE = "users"; // название таблицы в бд
     // названия столбцов
     public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_LABEL = "label";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_YEAR = "year";
 
@@ -21,11 +22,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE + " (" + COLUMN_ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_NAME
+                + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ COLUMN_LABEL + " INTEGER, " + COLUMN_NAME
                 + " INTEGER, " + COLUMN_YEAR + " INTEGER);");
-        // добавление начальных данных
-        db.execSQL("INSERT INTO "+ TABLE +" (" + COLUMN_NAME
-                + ", " + COLUMN_YEAR  + ") VALUES (12, 1981);");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,  int newVersion) {
