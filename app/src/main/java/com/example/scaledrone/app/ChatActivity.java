@@ -1,7 +1,6 @@
 package com.example.scaledrone.app;
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,16 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.scaledrone.lib.HistoryRoomListener;
 import com.scaledrone.lib.Listener;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
+import com.scaledrone.lib.SubscribeOptions;
 
 import java.util.Random;
 
+import lombok.Data;
+
 public class ChatActivity extends AppCompatActivity implements RoomListener {
 
-    // replace this with a real channelID from Scaledrone dashboard
     private String channelID = "w6wSvI0YGYWlqQuF";
     private String roomName = "observable-room";
     private EditText editText;
@@ -49,7 +51,15 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
             @Override
             public void onOpen() {
                 System.out.println("Scaledrone connection open");
-                scaledrone.subscribe(roomName, ChatActivity.this);
+                Room room = scaledrone.subscribe(roomName,
+                        ChatActivity.this,
+                        new SubscribeOptions(5));
+                room.listenToHistoryEvents(new HistoryRoomListener() {
+                    @Override
+                    public void onHistoryMessage(Room room, com.scaledrone.lib.Message message) {
+                        scaledrone.publish(room.getName(),message.getData());
+                    }
+                });
             }
 
             @Override
@@ -79,7 +89,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     @Override
     public void onOpen(Room room) {
-        System.out.println("Conneted to room");
+        System.out.println("Connected to room");
     }
 
     @Override
@@ -132,7 +142,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     }
 
-
+    @Data
     static class MemberData {
         private String name;
         private String color;
@@ -143,22 +153,6 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         }
 
         public MemberData() {
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getColor() {
-            return color;
-        }
-
-        @Override
-        public String toString() {
-            return "MemberData{" +
-                    "name='" + name + '\'' +
-                    ", color='" + color + '\'' +
-                    '}';
         }
     }
 }

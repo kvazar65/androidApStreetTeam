@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:background="#fff"
         android:orientation="horizontal">
-        //Кнопка "Назад"
+        <!--Кнопка "Назад"-->
         <ImageButton
             android:id="@+id/BackButton"
             android:layout_width="34dp"
