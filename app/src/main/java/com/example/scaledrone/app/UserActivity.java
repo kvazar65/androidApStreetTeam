@@ -37,7 +37,7 @@ public class UserActivity extends AppCompatActivity {
             // получаем элемент по id из бд
             adapter.open();
             Place place = adapter.getUser(userId);
-            labelBox.setText(String.valueOf(place.getLabel()));
+            labelBox.setText(place.getLabel());
             latBox.setText(String.valueOf(place.getLatitude()));
             lonBox.setText(String.valueOf(place.getLongitude()));
             adapter.close();
@@ -48,7 +48,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void save(View view){
-        int label = Integer.parseInt(labelBox.getText().toString());
+        String label = labelBox.getText().toString();
         int latitude = Integer.parseInt(latBox.getText().toString());
         int longitude = Integer.parseInt(lonBox.getText().toString());
         Place place = new Place(userId, label,latitude, longitude);

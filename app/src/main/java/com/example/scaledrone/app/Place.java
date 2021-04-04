@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Place {
 
     private final long id;
-    private final int label;
+    private final String label;
     private final int latitude;
     private final int longitude;
 

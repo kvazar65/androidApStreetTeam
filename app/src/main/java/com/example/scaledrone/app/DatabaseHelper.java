@@ -11,8 +11,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // названия столбцов
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_LABEL = "label";
-    public static final String COLUMN_LATITUDE = "latitude";
-    public static final String COLUMN_LONGITUDE = "longotude";
+    public static final String COLUMN_LATITUDE = "latitude"; //широта
+    public static final String COLUMN_LONGITUDE = "longotude"; //долгота
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);
@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE + " (" + COLUMN_ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ COLUMN_LABEL + " INTEGER, " + COLUMN_LATITUDE
+                + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ COLUMN_LABEL + " TEXT, " + COLUMN_LATITUDE
                 + " INTEGER, " + COLUMN_LONGITUDE + " INTEGER);");
     }
     @Override

@@ -37,10 +37,10 @@ public class DatabaseAdapter {
         Cursor cursor = getAllEntries();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID));
-            int label = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
-            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
-            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            places.add(new Place(id, label, name, year));
+            String label = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
+            int latitude = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
+            int longitude = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
+            places.add(new Place(id, label, latitude, longitude));
         }
         cursor.close();
         return places;
@@ -55,10 +55,10 @@ public class DatabaseAdapter {
         String query = String.format("SELECT * FROM %s WHERE %s=?", DatabaseHelper.TABLE, DatabaseHelper.COLUMN_ID);
         Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
         if (cursor.moveToFirst()) {
-            int label = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
-            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
-            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            place = new Place(id, label, name, year);
+            String label = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
+            int latitude = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
+            int longitude = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
+            place = new Place(id, label, latitude, longitude);
         }
         cursor.close();
         return place;
