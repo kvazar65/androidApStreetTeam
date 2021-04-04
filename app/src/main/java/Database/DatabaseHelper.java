@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Database;
 
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;

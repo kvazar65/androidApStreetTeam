@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MapPage"
+        tools:context="Map.MapPage"
         tools:layout="@layout/map_page" />
 
 

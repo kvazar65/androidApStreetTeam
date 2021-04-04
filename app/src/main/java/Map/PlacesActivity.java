@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class UserActivity extends AppCompatActivity {
+import Database.DatabaseAdapter;
+import com.example.scaledrone.app.R;
+
+public class PlacesActivity extends AppCompatActivity {
 
     private EditText latBox;
     private EditText labelBox;

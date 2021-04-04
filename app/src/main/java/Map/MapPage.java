@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Map;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import Database.DatabaseAdapter;
+import com.example.scaledrone.app.MainActivity;
+import com.example.scaledrone.app.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:clipToPadding="false"
     android:focusableInTouchMode="true"
-    tools:context="com.example.scaledrone.app.ChatActivity">
+    tools:context="Chat.ChatActivity">
 
     <ListView
         android:id="@+id/messages_view"

@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import Database.DatabaseAdapter;
+import com.example.scaledrone.app.R;
 
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class MarkersPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Place place =arrayAdapter.getItem(position);
                 if(place !=null) {
-                    Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), PlacesActivity.class);
                     intent.putExtra("id", place.getId());
                     startActivity(intent);
                 }
@@ -49,7 +52,7 @@ public class MarkersPage extends AppCompatActivity {
     }
     // по нажатию на кнопку запускаем UserActivity для добавления данных
     public void add(View view){
-        Intent intent = new Intent(this, UserActivity.class);
+        Intent intent = new Intent(this, PlacesActivity.class);
         startActivity(intent);
     }
 }

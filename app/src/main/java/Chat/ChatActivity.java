@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Chat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.scaledrone.app.MainActivity;
+import com.example.scaledrone.app.R;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.HistoryRoomListener;

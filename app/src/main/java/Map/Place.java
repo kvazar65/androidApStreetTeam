@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Map;
 
 import androidx.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Map.Place;
 
 public class DatabaseAdapter {
 

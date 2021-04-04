@@ -9,6 +9,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Chat.ChatActivity;
+import Map.MapPage;
+import Map.MarkersPage;
+
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package Chat;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.scaledrone.app.R;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import Chat.Message;
 
 
 public class MessageAdapter extends BaseAdapter {

@@ -31,7 +31,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.example.scaledrone.app.MapPage"
+            android:name="Map.MapPage"
             android:label="@string/title_activity_map_page">
 
         </activity>
@@ -45,14 +45,14 @@
         <activity android:name="com.example.scaledrone.app.ProfilePage">
 
         </activity>
-        <activity android:name="com.example.scaledrone.app.ChatActivity">
+        <activity android:name="Chat.ChatActivity">
 
         </activity>
-        <activity android:name="com.example.scaledrone.app.UserActivity">
+        <activity android:name="Map.PlacesActivity">
 
         </activity>
 
-        <activity android:name="com.example.scaledrone.app.MarkersPage">
+        <activity android:name="Map.MarkersPage">
 
         </activity>
 
