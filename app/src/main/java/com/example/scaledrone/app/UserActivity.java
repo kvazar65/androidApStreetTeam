@@ -49,8 +49,8 @@ public class UserActivity extends AppCompatActivity {
 
     public void save(View view){
         String label = labelBox.getText().toString();
-        int latitude = Integer.parseInt(latBox.getText().toString());
-        int longitude = Integer.parseInt(lonBox.getText().toString());
+        float latitude = Float.parseFloat(latBox.getText().toString());
+        float longitude = Float.parseFloat(lonBox.getText().toString());
         Place place = new Place(userId, label,latitude, longitude);
 
         adapter.open();

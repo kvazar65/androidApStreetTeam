@@ -13,8 +13,8 @@ public class Place {
 
     private final long id;
     private final String label;
-    private final int latitude;
-    private final int longitude;
+    private final float latitude;
+    private final float longitude;
 
 
     @NonNull

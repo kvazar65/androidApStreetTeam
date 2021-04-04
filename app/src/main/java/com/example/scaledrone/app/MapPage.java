@@ -57,9 +57,10 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback {
             LatLng position = new LatLng(place.getLatitude(), place.getLongitude());
             mMap.addMarker(new MarkerOptions().position(position).title(String.valueOf(place.getLabel())));
         }
-        LatLng msc = new LatLng(55, 37);
+        LatLng msc = new LatLng(55.74, 37.62);
+        float zoom = 10;
         //TODO
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(msc));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msc,zoom));
     }
 
     // Обработчик нажатия кнопки "назад"
