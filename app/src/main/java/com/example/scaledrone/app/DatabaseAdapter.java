@@ -28,7 +28,7 @@ public class DatabaseAdapter {
     }
 
     private Cursor getAllEntries() {
-        String[] columns = new String[]{DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_NAME,DatabaseHelper.COLUMN_LABEL ,DatabaseHelper.COLUMN_YEAR};
+        String[] columns = new String[]{DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_LATITUDE,DatabaseHelper.COLUMN_LABEL ,DatabaseHelper.COLUMN_LONGITUDE};
         return database.query(DatabaseHelper.TABLE, columns, null, null, null, null, null);
     }
 
@@ -37,9 +37,9 @@ public class DatabaseAdapter {
         Cursor cursor = getAllEntries();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID));
-            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME));
             int label = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
-            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_YEAR));
+            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
+            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
             places.add(new Place(id, label, name, year));
         }
         cursor.close();
@@ -55,9 +55,9 @@ public class DatabaseAdapter {
         String query = String.format("SELECT * FROM %s WHERE %s=?", DatabaseHelper.TABLE, DatabaseHelper.COLUMN_ID);
         Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
         if (cursor.moveToFirst()) {
-            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME));
             int label = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
-            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_YEAR));
+            int name = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
+            int year = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
             place = new Place(id, label, name, year);
         }
         cursor.close();
@@ -67,9 +67,9 @@ public class DatabaseAdapter {
     public long insert(Place place) {
 
         ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.COLUMN_NAME, place.getName());
-        cv.put(DatabaseHelper.COLUMN_YEAR, place.getYear());
         cv.put(DatabaseHelper.COLUMN_LABEL, place.getLabel());
+        cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
+        cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
 
         return database.insert(DatabaseHelper.TABLE, null, cv);
     }
@@ -85,9 +85,9 @@ public class DatabaseAdapter {
 
         String whereClause = DatabaseHelper.COLUMN_ID + "=" + String.valueOf(place.getId());
         ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.COLUMN_NAME, place.getName());
-        cv.put(DatabaseHelper.COLUMN_YEAR, place.getYear());
         cv.put(DatabaseHelper.COLUMN_LABEL, place.getLabel());
+        cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
+        cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
         return database.update(DatabaseHelper.TABLE, cv, whereClause, null);
     }
 }

@@ -16,7 +16,7 @@
         android:layout_height="34dp" />
 
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/longitude"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/avatar"
         android:layout_alignTop="@+id/avatar"
@@ -29,8 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/message_body"
-        android:layout_below="@+id/year"
-        android:layout_alignLeft="@+id/year"
+        android:layout_below="@+id/longitude"
+        android:layout_alignLeft="@+id/longitude"
         android:background="@drawable/their_message"
         android:paddingVertical="12dp"
         android:paddingHorizontal="16dp"

@@ -13,13 +13,13 @@ public class Place {
 
     private final long id;
     private final int label;
-    private final int name;
-    private final int year;
+    private final int latitude;
+    private final int longitude;
 
 
     @NonNull
     @Override
     public String toString() {
-        return String.format("Name: %s \n Lat %s : Long %s",this.label,this.name,this.year);
+        return String.format("Name: %s \n Lat %s : Long %s",this.label,this.latitude,this.longitude);
     }
 }

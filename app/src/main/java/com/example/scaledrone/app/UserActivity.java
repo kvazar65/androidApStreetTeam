@@ -10,8 +10,9 @@ import android.widget.EditText;
 
 public class UserActivity extends AppCompatActivity {
 
-    private EditText nameBox;
-    private EditText yearBox;
+    private EditText latBox;
+    private EditText labelBox;
+    private EditText lonBox;
     private Button delButton;
 
     private DatabaseAdapter adapter;
@@ -21,8 +22,9 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_adder);
 
-        nameBox = (EditText) findViewById(R.id.JOPA);
-        yearBox = (EditText) findViewById(R.id.year);
+        labelBox = (EditText) findViewById(R.id.label);
+        latBox = (EditText) findViewById(R.id.latitude);
+        lonBox = (EditText) findViewById(R.id.longitude);
         delButton = (Button) findViewById(R.id.deleteButton);
         adapter = new DatabaseAdapter(this);
 
@@ -35,8 +37,9 @@ public class UserActivity extends AppCompatActivity {
             // получаем элемент по id из бд
             adapter.open();
             Place place = adapter.getUser(userId);
-            nameBox.setText(String.valueOf(place.getName()));
-            yearBox.setText(String.valueOf(place.getYear()));
+            labelBox.setText(String.valueOf(place.getLabel()));
+            latBox.setText(String.valueOf(place.getLatitude()));
+            lonBox.setText(String.valueOf(place.getLongitude()));
             adapter.close();
         } else {
             // скрываем кнопку удаления
@@ -45,10 +48,10 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void save(View view){
-
-        int name = Integer.parseInt(nameBox.getText().toString());
-        int year = Integer.parseInt(yearBox.getText().toString());
-        Place place = new Place(userId, name, year);
+        int label = Integer.parseInt(labelBox.getText().toString());
+        int latitude = Integer.parseInt(latBox.getText().toString());
+        int longitude = Integer.parseInt(lonBox.getText().toString());
+        Place place = new Place(userId, label,latitude, longitude);
 
         adapter.open();
         if (userId > 0) {

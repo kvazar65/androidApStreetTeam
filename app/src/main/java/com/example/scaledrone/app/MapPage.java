@@ -13,7 +13,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MapPage extends FragmentActivity implements OnMapReadyCallback {
@@ -55,7 +54,7 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback {
     private void makeMarkerFromDatabase() {
         List<Place> places = databaseAdapter.getUsers();
         for (Place place : places) {
-            LatLng position = new LatLng(place.getName(), place.getYear());
+            LatLng position = new LatLng(place.getLatitude(), place.getLongitude());
             mMap.addMarker(new MarkerOptions().position(position).title(String.valueOf(place.getLabel())));
         }
         LatLng msc = new LatLng(55, 37);
