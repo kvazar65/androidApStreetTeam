@@ -1,11 +1,13 @@
 package Chat;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.scaledrone.app.MainActivity;
@@ -19,9 +21,16 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 import com.scaledrone.lib.SubscribeOptions;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Random;
 
 import lombok.Data;
+import lombok.SneakyThrows;
 
 public class ChatActivity extends AppCompatActivity implements RoomListener {
 
@@ -31,6 +40,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
+    private List<Message> history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +59,76 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         MemberData data = new MemberData(getRandomName(), getRandomColor());
 
         scaledrone = new Scaledrone(channelID, data);
-        scaledrone.connect(new Listener() {
+        scaledrone.connect(createListener());
+    }
+
+    private Listener createListener() {
+        return new Listener() {
             @Override
             public void onOpen() {
                 System.out.println("Scaledrone connection open");
+
+                Room room = scaledrone.subscribe(roomName,
+                        ChatActivity.this,
+                        new SubscribeOptions(5));
+
+                room.listenToHistoryEvents(new HistoryRoomListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @SneakyThrows
+                    @Override
+                    public void onHistoryMessage(Room room, com.scaledrone.lib.Message message) {
+                        MemberData data = new MemberData(getRandomName(), getRandomColor());
+
+                        String s = getStringFromFile("src\\main\\java\\Chat\\messages.txt");
+                        scaledrone = new Scaledrone(channelID, data);
+                        scaledrone.connect(createListenerNoHist());
+                    }
+                });
+            }
+
+            @Override
+            public void onOpenFailure(Exception ex) {
+                System.err.println(ex);
+            }
+
+            @Override
+            public void onFailure(Exception ex) {
+                System.err.println(ex);
+            }
+
+            @Override
+            public void onClosed(String reason) {
+                System.err.println(reason);
+            }
+        };
+    }
+
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    public static String getStringFromFile(String filePath) throws Exception {
+        File fl = new File(filePath);
+        FileInputStream fin = new FileInputStream(fl);
+        String ret = convertStreamToString(fin);
+        //Make sure you close all streams.
+        fin.close();
+        return ret;
+    }
+
+    private Listener createListenerNoHist() {
+        return new Listener() {
+            @Override
+            public void onOpen() {
+                System.out.println("Scaledrone connection open");
+
                 Room room = scaledrone.subscribe(roomName,
                         ChatActivity.this,
                         new SubscribeOptions(5));
@@ -78,7 +154,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
             public void onClosed(String reason) {
                 System.err.println(reason);
             }
-        });
+        };
     }
 
     public void sendMessage(View view) {
