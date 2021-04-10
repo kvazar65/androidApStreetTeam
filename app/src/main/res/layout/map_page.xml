@@ -21,6 +21,49 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/navigationbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="#43322C"
+            android:onClick="buttonClickBack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/abc_vector_test"
+            tools:srcCompat="@drawable/abc_vector_test" />
+
+        <ImageButton
+            android:id="@+id/MarkerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+
+            android:layout_weight="1"
+            android:background="#CDDC39"
+            android:onClick="markersClick"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/abc_vector_test"
+            tools:srcCompat="@drawable/abc_vector_test" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -91,6 +134,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/scroll_down"
                 android:text="@string/right_arrow" />
+
         </RelativeLayout>
 
         <LinearLayout
@@ -158,49 +202,5 @@
             android:layout_weight="1"
             android:max="5000" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/BackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_weight="1"
-            android:background="#43322C"
-            android:onClick="buttonClickBack"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/abc_vector_test"
-            tools:srcCompat="@drawable/abc_vector_test" />
-
-        <ImageButton
-            android:id="@+id/MarkerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginLeft="100dp"
-            android:layout_weight="1"
-            android:background="#CDDC39"
-            android:onClick="markersClick"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/abc_vector_test"
-            tools:srcCompat="@drawable/abc_vector_test" />
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_weight="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 </LinearLayout>

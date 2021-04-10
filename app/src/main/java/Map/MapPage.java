@@ -34,6 +34,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -44,6 +45,8 @@ import Database.DatabaseAdapter;
 
 // [START maps_camera_events]
 public class MapPage extends AppCompatActivity implements
+        GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnMapClickListener,
 
         OnMapReadyCallback {
     // [START_EXCLUDE silent]
@@ -58,6 +61,10 @@ public class MapPage extends AppCompatActivity implements
 
 
     private GoogleMap map;
+    /**
+     * Keeps track of the selected marker.
+     */
+    private Marker mSelectedMarker;
     // [START_EXCLUDE silent]
     private DatabaseAdapter databaseAdapter;
     private CompoundButton animateToggle;
@@ -88,7 +95,32 @@ public class MapPage extends AppCompatActivity implements
         System.out.println("                                 Map open");
         System.out.println("--------------------------------------------------------------------");
     }
+    @Override
+    public void onMapClick(final LatLng point) {
+        // Any showing info window closes when the map is clicked.
+        // Clear the currently selected marker.
+        mSelectedMarker = null;
+    }
 
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        // The user has re-tapped on the marker which was already showing an info window.
+        if (marker.equals(mSelectedMarker)) {
+            // The showing info window has already been closed - that's the first thing to happen
+            // when any marker is clicked.
+            // Return true to indicate we have consumed the event and that we do not want the
+            // the default behavior to occur (which is for the camera to move such that the
+            // marker is centered and for the marker's info window to open, if it has one).
+            mSelectedMarker = null;
+            return true;
+        }
+
+        mSelectedMarker = marker;
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur.
+        return false;
+    }
     // [START_EXCLUDE silent]
     @Override
     protected void onResume() {
@@ -100,13 +132,19 @@ public class MapPage extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
         databaseAdapter.open();
         makeMarkerFromDatabase();
         map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(true);
         // [END_EXCLUDE]
 
-        // Show Sydney
+        // Set listener for marker click event.  See the bottom of this class for its behavior.
+        map.setOnMarkerClickListener(this);
+
+        // Set listener for map click event.  See the bottom of this class for its behavior.
+        map.setOnMapClickListener(this);
+
 
     }
     private void makeMarkerFromDatabase() {
@@ -323,6 +361,7 @@ public class MapPage extends AppCompatActivity implements
         Intent intent = new Intent(MapPage.this, MarkersPage.class);
         startActivity(intent);
     }
+
 }
     // [END_EXCLUDE]
 
