@@ -1,45 +1,6 @@
 package Map;
 
-/*
-import androidx.fragment.app.FragmentActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
-import Database.DatabaseAdapter;
-import com.example.scaledrone.app.MainActivity;
-import com.example.scaledrone.app.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.List;
-
-public class MapPage extends FragmentActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
-    private DatabaseAdapter databaseAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_page);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        databaseAdapter = new DatabaseAdapter(this);
-        System.out.println("                                                                     ");
-        System.out.println("--------------------------------------------------------------------");
-        System.out.println("                                 Map open");
-        System.out.println("--------------------------------------------------------------------");
-    }
-
-    */
 /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -48,43 +9,7 @@ public class MapPage extends FragmentActivity implements OnMapReadyCallback {
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
-     *//*
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        databaseAdapter.open();
-        makeMarkerFromDatabase();
-    }
-
-    private void makeMarkerFromDatabase() {
-        List<Place> places = databaseAdapter.getUsers();
-        for (Place place : places) {
-            LatLng position = new LatLng(place.getLatitude(), place.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(position).title(String.valueOf(place.getLabel())));
-        }
-        LatLng msc = new LatLng(55.74, 37.62);
-        float zoom = 10;
-        //TODO
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msc,zoom));
-    }
-
-    // Обработчик нажатия кнопки "назад"
-    public void buttonClickBack(View view) {
-        System.out.println("The *Back* button is pressed");
-        Intent intent = new Intent(MapPage.this, MainActivity.class);
-        startActivity(intent);
-
-    }
-
-    // Обработчик нажатия кнопки "назад"
-    public void markersClick(View view) {
-        System.out.println("The *Back* button is pressed");
-        Intent intent = new Intent(MapPage.this, MarkersPage.class);
-        startActivity(intent);
-    }
-}
-*/
+     */
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -116,22 +41,17 @@ import java.util.List;
 
 import Database.DatabaseAdapter;
 
-/**
- * This shows how to change the camera position for the map.
- */
+
 // [START maps_camera_events]
 public class MapPage extends AppCompatActivity implements
-        OnCameraMoveStartedListener,
-        OnCameraMoveListener,
-        OnCameraMoveCanceledListener,
-        OnCameraIdleListener,
+
         OnMapReadyCallback {
     // [START_EXCLUDE silent]
 
 
     /**
-     * The amount by which to scroll the camera. Note that this amount is in raw pixels, not dp
-     * (density-independent pixels).
+     Величина, на которую прокручивается камера. Величина  в необработанных пикселях, а не в dp
+     (density-independent pixels).
      */
     private static final int SCROLL_BY_PX = 100;
 
@@ -182,12 +102,6 @@ public class MapPage extends AppCompatActivity implements
         map = googleMap;
         databaseAdapter.open();
         makeMarkerFromDatabase();
-        map.setOnCameraIdleListener(this);
-        map.setOnCameraMoveStartedListener(this);
-        map.setOnCameraMoveListener(this);
-        map.setOnCameraMoveCanceledListener(this);
-        // [START_EXCLUDE silent]
-        // We will provide our own zoom controls.
         map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(true);
         // [END_EXCLUDE]
@@ -209,8 +123,8 @@ public class MapPage extends AppCompatActivity implements
 
     // [START_EXCLUDE silent]
     /**
-     * When the map is not ready the CameraUpdateFactory cannot be used. This should be called on
-     * all entry points that call methods on the Google Maps API.
+     Когда карта не готова, CameraUpdateFactory не может быть использован. Это должно быть вызвано во
+     всех точках входа, которые вызывают методы в API Google Maps.
      */
     private boolean checkReady() {
         if (map == null) {
@@ -300,7 +214,7 @@ public class MapPage extends AppCompatActivity implements
     }
 
     /**
-     * Called when the left arrow button is clicked. This causes the camera to move to the left
+    <
      */
     public void onScrollLeft(View view) {
         if (!checkReady()) {
@@ -311,7 +225,7 @@ public class MapPage extends AppCompatActivity implements
     }
 
     /**
-     * Called when the right arrow button is clicked. This causes the camera to move to the right.
+    >
      */
     public void onScrollRight(View view) {
         if (!checkReady()) {
@@ -322,7 +236,7 @@ public class MapPage extends AppCompatActivity implements
     }
 
     /**
-     * Called when the up arrow button is clicked. The causes the camera to move up.
+     ^
      */
     public void onScrollUp(View view) {
         if (!checkReady()) {
@@ -333,7 +247,7 @@ public class MapPage extends AppCompatActivity implements
     }
 
     /**
-     * Called when the down arrow button is clicked. This causes the camera to move down.
+     v
      */
     public void onScrollDown(View view) {
         if (!checkReady()) {
@@ -389,81 +303,6 @@ public class MapPage extends AppCompatActivity implements
     }
     // [END_EXCLUDE]
 
-    @Override
-    public void onCameraMoveStarted(int reason) {
-        // [START_EXCLUDE silent]
-        if (!isCanceled) {
-            map.clear();
-        }
-        // [END_EXCLUDE]
-
-        String reasonText = "UNKNOWN_REASON";
-        // [START_EXCLUDE silent]
-        currPolylineOptions = new PolylineOptions().width(5);
-        // [END_EXCLUDE]
-        switch (reason) {
-            case OnCameraMoveStartedListener.REASON_GESTURE:
-                // [START_EXCLUDE silent]
-                currPolylineOptions.color(Color.BLUE);
-                // [END_EXCLUDE]
-                reasonText = "GESTURE";
-                break;
-            case OnCameraMoveStartedListener.REASON_API_ANIMATION:
-                // [START_EXCLUDE silent]
-                currPolylineOptions.color(Color.RED);
-                // [END_EXCLUDE]
-                reasonText = "API_ANIMATION";
-                break;
-            case OnCameraMoveStartedListener.REASON_DEVELOPER_ANIMATION:
-                // [START_EXCLUDE silent]
-                currPolylineOptions.color(Color.GREEN);
-                // [END_EXCLUDE]
-                reasonText = "DEVELOPER_ANIMATION";
-                break;
-        }
-
-        // [START_EXCLUDE silent]
-        addCameraTargetToPath();
-        // [END_EXCLUDE]
-    }
-
-    @Override
-    public void onCameraMove() {
-        // [START_EXCLUDE silent]
-        // When the camera is moving, add its target to the current path we'll draw on the map.
-        if (currPolylineOptions != null) {
-            addCameraTargetToPath();
-        }
-        // [END_EXCLUDE]
-
-    }
-
-    @Override
-    public void onCameraMoveCanceled() {
-        // [START_EXCLUDE silent]
-        // When the camera stops moving, add its target to the current path, and draw it on the map.
-        if (currPolylineOptions != null) {
-            addCameraTargetToPath();
-            map.addPolyline(currPolylineOptions);
-        }
-        isCanceled = true;  // Set to clear the map when dragging starts again.
-        currPolylineOptions = null;
-        // [END_EXCLUDE]
-
-    }
-
-    @Override
-    public void onCameraIdle() {
-        // [START_EXCLUDE silent]
-        if (currPolylineOptions != null) {
-            addCameraTargetToPath();
-            map.addPolyline(currPolylineOptions);
-        }
-        currPolylineOptions = null;
-        isCanceled = false;  // Set to *not* clear the map when dragging starts again.
-        // [END_EXCLUDE]
-
-    }
 
     // [START_EXCLUDE silent]
     private void addCameraTargetToPath() {
