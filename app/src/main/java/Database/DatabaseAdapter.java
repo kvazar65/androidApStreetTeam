@@ -30,19 +30,20 @@ public class DatabaseAdapter {
     }
 
     private Cursor getAllEntries() {
-        String[] columns = new String[]{DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_LATITUDE,DatabaseHelper.COLUMN_LABEL ,DatabaseHelper.COLUMN_LONGITUDE};
+        String[] columns = new String[]{DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_LATITUDE,DatabaseHelper.COLUMN_LABEL,DatabaseHelper.COLUMN_INFO,DatabaseHelper.COLUMN_LONGITUDE};
         return database.query(DatabaseHelper.TABLE, columns, null, null, null, null, null);
     }
 
-    public List<Place> getUsers() {
+    public List<Place> getPlaces() {
         ArrayList<Place> places = new ArrayList<>();
         Cursor cursor = getAllEntries();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID));
             String label = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
+            String info = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_INFO));
             float latitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
             float longitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            places.add(new Place(id, label, latitude, longitude));
+            places.add(new Place(id, label, info, latitude, longitude));
         }
         cursor.close();
         return places;
@@ -58,9 +59,10 @@ public class DatabaseAdapter {
         Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
         if (cursor.moveToFirst()) {
             String label = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LABEL));
+            String info = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_INFO));
             float latitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
             float longitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            place = new Place(id, label, latitude, longitude);
+            place = new Place(id, label,label, latitude, longitude);
         }
         cursor.close();
         return place;
@@ -70,6 +72,7 @@ public class DatabaseAdapter {
 
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_LABEL, place.getLabel());
+        cv.put(DatabaseHelper.COLUMN_INFO, place.getInfo());
         cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
         cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
 
@@ -88,6 +91,7 @@ public class DatabaseAdapter {
         String whereClause = DatabaseHelper.COLUMN_ID + "=" + String.valueOf(place.getId());
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_LABEL, place.getLabel());
+        cv.put(DatabaseHelper.COLUMN_INFO, place.getInfo());
         cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
         cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
         return database.update(DatabaseHelper.TABLE, cv, whereClause, null);

@@ -14,6 +14,7 @@ import com.example.scaledrone.app.R;
 public class PlacesActivity extends AppCompatActivity {
 
     private EditText latBox;
+    private EditText infoBox;
     private EditText labelBox;
     private EditText lonBox;
     private Button delButton;
@@ -26,6 +27,7 @@ public class PlacesActivity extends AppCompatActivity {
         setContentView(R.layout.place_adder);
 
         labelBox = (EditText) findViewById(R.id.label);
+        infoBox = (EditText) findViewById(R.id.info);
         latBox = (EditText) findViewById(R.id.latitude);
         lonBox = (EditText) findViewById(R.id.longitude);
         delButton = (Button) findViewById(R.id.deleteButton);
@@ -52,9 +54,10 @@ public class PlacesActivity extends AppCompatActivity {
 
     public void save(View view){
         String label = labelBox.getText().toString();
+        String info = infoBox.getText().toString();
         float latitude = Float.parseFloat(latBox.getText().toString());
         float longitude = Float.parseFloat(lonBox.getText().toString());
-        Place place = new Place(userId, label,latitude, longitude);
+        Place place = new Place(userId, label,info ,latitude, longitude);
 
         adapter.open();
         if (userId > 0) {

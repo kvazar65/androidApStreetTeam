@@ -44,7 +44,7 @@ public class MarkersPage extends AppCompatActivity {
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
 
-        List<Place> places = adapter.getUsers();
+        List<Place> places = adapter.getPlaces();
 
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, places);
         userList.setAdapter(arrayAdapter);

@@ -11,7 +11,6 @@ package Map;
      * installed Google Play services and returned to the app.
      */
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -26,10 +25,6 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.CancelableCallback;
-import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener;
-import com.google.android.gms.maps.GoogleMap.OnCameraMoveCanceledListener;
-import com.google.android.gms.maps.GoogleMap.OnCameraMoveListener;
-import com.google.android.gms.maps.GoogleMap.OnCameraMoveStartedListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -147,11 +142,12 @@ public class MapPage extends AppCompatActivity implements
 
 
     }
+
     private void makeMarkerFromDatabase() {
-        List<Place> places = databaseAdapter.getUsers();
+        List<Place> places = databaseAdapter.getPlaces();
         for (Place place : places) {
             LatLng position = new LatLng(place.getLatitude(), place.getLongitude());
-            map.addMarker(new MarkerOptions().position(position).title(String.valueOf(place.getLabel())));
+            map.addMarker(new MarkerOptions().position(position).snippet(String.valueOf(place.getInfo())).title(String.valueOf(place.getLabel())));
         }
         LatLng msc = new LatLng(55.74, 37.62);
         float zoom = 10;
