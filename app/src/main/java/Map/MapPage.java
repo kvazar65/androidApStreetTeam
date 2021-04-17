@@ -31,20 +31,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
+
 
 import java.util.List;
 
 import Database.DatabaseAdapter;
 
 
-// [START maps_camera_events]
+
 public class MapPage extends AppCompatActivity implements
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener,
 
         OnMapReadyCallback {
-    // [START_EXCLUDE silent]
+
 
 
     /**
@@ -60,26 +60,25 @@ public class MapPage extends AppCompatActivity implements
      * Keeps track of the selected marker.
      */
     private Marker mSelectedMarker;
-    // [START_EXCLUDE silent]
+
     private DatabaseAdapter databaseAdapter;
     private CompoundButton animateToggle;
     private CompoundButton customDurationToggle;
     private SeekBar customDurationBar;
-    private PolylineOptions currPolylineOptions;
-    private boolean isCanceled = false;
-    // [END_EXCLUDE]
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
-        // [START_EXCLUDE silent]
+
         animateToggle = findViewById(R.id.animate);
         customDurationToggle = findViewById(R.id.duration_toggle);
         customDurationBar = findViewById(R.id.duration_bar);
 
         updateEnabledState();
-        // [END_EXCLUDE]
+
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

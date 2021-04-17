@@ -9,7 +9,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ru.streetteam.app.R;
 
 import Chat.ChatActivity;
 import Map.MapPage;

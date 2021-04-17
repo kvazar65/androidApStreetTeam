@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ru.streetteam.app.R;
+
 
 public class ProfilePage extends AppCompatActivity {
     @Override

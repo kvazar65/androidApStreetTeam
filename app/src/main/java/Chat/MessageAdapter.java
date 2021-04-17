@@ -15,7 +15,7 @@ import ru.streetteam.app.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import Chat.Message;
+
 
 
 public class MessageAdapter extends BaseAdapter {

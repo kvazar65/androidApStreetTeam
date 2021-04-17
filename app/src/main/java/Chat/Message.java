@@ -1,6 +1,5 @@
 package Chat;
 
-import Chat.ChatActivity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
