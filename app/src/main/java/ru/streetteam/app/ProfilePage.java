@@ -1,4 +1,4 @@
-package com.example.scaledrone.app;
+package ru.streetteam.app;
 
 
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import ru.streetteam.app.R;
 
 public class ProfilePage extends AppCompatActivity {
     @Override

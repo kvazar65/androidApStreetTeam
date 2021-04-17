@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import Database.DatabaseAdapter;
-import com.example.scaledrone.app.R;
+import ru.streetteam.app.R;
 
 import java.util.List;
 

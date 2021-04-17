@@ -8,8 +8,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.scaledrone.app.MainPage;
-import com.example.scaledrone.app.R;
+import ru.streetteam.app.MainPage;
+import ru.streetteam.app.R;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.HistoryRoomListener;
@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         scaledrone.connect(new Listener() {
             @Override
             public void onOpen() {
-                System.out.println("Scaledrone connection open");
+                System.out.println("Соединение с Scaledrone открыто ");
                 Room room = scaledrone.subscribe(roomName,
                         ChatActivity.this,
                         new SubscribeOptions(5));
@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     @Override
     public void onOpen(Room room) {
-        System.out.println("Connected to room");
+        System.out.println("Подключение к комнате");
     }
 
     @Override
@@ -119,8 +119,8 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     }
 
     private String getRandomName() {
-        String[] adjs = {"autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"};
-        String[] nouns = {"waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"};
+        String[] adjs = {"Могучий", "Быстрый", "Ловкий", "Прыткий", "Сильный", "Опытный", "Непобедимый", "Неостановимый", "Спортивный", "Неудержимый", "Двужильный", "Знаменитый","Талантливый","Тренированный","Настоящий","Выдающийся" };
+        String[] nouns = {"Спортсмен","Бегун","Прыгун","Юниор","Тяжелоатлет","Шахматист","Бык","Новичок","Отлыниватель","Арбитр","Судья","Фанат","Пловец","Чемпион","Фаворит","Незнакомец","Проходимец","Спринтер"};
         return (
                 adjs[(int) Math.floor(Math.random() * adjs.length)] +
                         "_" +

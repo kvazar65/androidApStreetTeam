@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.scaledrone.app.R;
+import ru.streetteam.app.R;
 
 import java.util.ArrayList;
 import java.util.List;

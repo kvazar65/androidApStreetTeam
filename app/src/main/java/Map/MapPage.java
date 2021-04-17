@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.scaledrone.app.MainPage;
-import com.example.scaledrone.app.R;
+import ru.streetteam.app.MainPage;
+import ru.streetteam.app.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -92,52 +92,34 @@ public class MapPage extends AppCompatActivity implements
     }
     @Override
     public void onMapClick(final LatLng point) {
-        // Any showing info window closes when the map is clicked.
-        // Clear the currently selected marker.
+        // скрывает информацию о текущем маркере при нажатии на карту
         mSelectedMarker = null;
     }
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        // The user has re-tapped on the marker which was already showing an info window.
         if (marker.equals(mSelectedMarker)) {
-            // The showing info window has already been closed - that's the first thing to happen
-            // when any marker is clicked.
-            // Return true to indicate we have consumed the event and that we do not want the
-            // the default behavior to occur (which is for the camera to move such that the
-            // marker is centered and for the marker's info window to open, if it has one).
             mSelectedMarker = null;
             return true;
         }
 
         mSelectedMarker = marker;
-
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur.
         return false;
     }
-    // [START_EXCLUDE silent]
     @Override
     protected void onResume() {
         super.onResume();
         updateEnabledState();
     }
-    // [END_EXCLUDE]
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
         databaseAdapter.open();
         makeMarkerFromDatabase();
         map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(true);
-        // [END_EXCLUDE]
-
-        // Set listener for marker click event.  See the bottom of this class for its behavior.
         map.setOnMarkerClickListener(this);
-
-        // Set listener for map click event.  See the bottom of this class for its behavior.
         map.setOnMapClickListener(this);
 
 
@@ -151,11 +133,10 @@ public class MapPage extends AppCompatActivity implements
         }
         LatLng msc = new LatLng(55.74, 37.62);
         float zoom = 10;
-        //TODO
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(msc,zoom));
     }
 
-    // [START_EXCLUDE silent]
+
     /**
      Когда карта не готова, CameraUpdateFactory не может быть использован. Это должно быть вызвано во
      всех точках входа, которые вызывают методы в API Google Maps.
@@ -326,7 +307,7 @@ public class MapPage extends AppCompatActivity implements
         if (animateToggle.isChecked()) {
             if (customDurationToggle.isChecked()) {
                 int duration = customDurationBar.getProgress();
-                // The duration must be strictly positive so we make it at least 1.
+                // duration строго положительная
                 map.animateCamera(update, Math.max(duration, 1), callback);
             } else {
                 map.animateCamera(update, callback);
@@ -334,14 +315,6 @@ public class MapPage extends AppCompatActivity implements
         } else {
             map.moveCamera(update);
         }
-    }
-    // [END_EXCLUDE]
-
-
-    // [START_EXCLUDE silent]
-    private void addCameraTargetToPath() {
-        LatLng target = map.getCameraPosition().target;
-        currPolylineOptions.add(target);
     }
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
@@ -351,14 +324,11 @@ public class MapPage extends AppCompatActivity implements
 
     }
 
-    // Обработчик нажатия кнопки "назад"
+    // Обработчик нажатия кнопки "Список локаций"
     public void markersClick(View view) {
-        System.out.println("The *Back* button is pressed");
+        System.out.println("The *Places list* button is pressed");
         Intent intent = new Intent(MapPage.this, MarkersPage.class);
         startActivity(intent);
     }
 
 }
-    // [END_EXCLUDE]
-
-// [END maps_camera_events]

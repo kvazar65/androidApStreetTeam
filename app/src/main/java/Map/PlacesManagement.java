@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import Database.DatabaseAdapter;
-import com.example.scaledrone.app.R;
+import ru.streetteam.app.R;
 
 public class PlacesManagement extends AppCompatActivity {
 
@@ -25,7 +25,10 @@ public class PlacesManagement extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_adder);
-
+        System.out.println("                                                                     ");
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println("                                 Place Management open");
+        System.out.println("--------------------------------------------------------------------");
         labelBox = (EditText) findViewById(R.id.label);
         infoBox = (EditText) findViewById(R.id.info);
         latBox = (EditText) findViewById(R.id.latitude);
@@ -37,7 +40,6 @@ public class PlacesManagement extends AppCompatActivity {
         if (extras != null) {
             userId = extras.getLong("id");
         }
-        // если 0, то добавление
         if (userId > 0) {
             // получаем элемент по id из бд
             adapter.open();
@@ -53,6 +55,7 @@ public class PlacesManagement extends AppCompatActivity {
     }
 
     public void save(View view){
+        System.out.println("The *Save* button is pressed");
         String label = labelBox.getText().toString();
         String info = infoBox.getText().toString();
         float latitude = Float.parseFloat(latBox.getText().toString());
@@ -69,14 +72,13 @@ public class PlacesManagement extends AppCompatActivity {
         goHome();
     }
     public void delete(View view){
-
+        System.out.println("The *Delete* button is pressed");
         adapter.open();
         adapter.delete(userId);
         adapter.close();
         goHome();
     }
     private void goHome(){
-        // переход к главной activity
         Intent intent = new Intent(this, MarkersPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
