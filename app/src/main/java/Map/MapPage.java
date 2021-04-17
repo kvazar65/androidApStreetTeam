@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.scaledrone.app.MainActivity;
+import com.example.scaledrone.app.MainPage;
 import com.example.scaledrone.app.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -346,7 +346,7 @@ public class MapPage extends AppCompatActivity implements
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
         System.out.println("The *Back* button is pressed");
-        Intent intent = new Intent(MapPage.this, MainActivity.class);
+        Intent intent = new Intent(MapPage.this, MainPage.class);
         startActivity(intent);
 
     }

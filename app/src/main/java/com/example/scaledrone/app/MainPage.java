@@ -14,7 +14,7 @@ import Map.MapPage;
 import Map.MarkersPage;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +29,21 @@ public class MainActivity extends AppCompatActivity {
     // Обработчик нажатия для перехода к активити профиля
     public void buttonClickProfile(View view) {
         System.out.println("The *Profile* button is pressed");
-        Intent intent = new Intent(MainActivity.this, MarkersPage.class);
+        Intent intent = new Intent(MainPage.this, MarkersPage.class);
         startActivity(intent);
 
     }
     // Обработчик нажатия для перехода к активити карты
     public void buttonClickMap(View view) {
         System.out.println("The *Map* button is pressed");
-        Intent intent = new Intent(MainActivity.this, MapPage.class);
+        Intent intent = new Intent(MainPage.this, MapPage.class);
         startActivity(intent);
 
     }
     // Обработчик нажатия для перехода к активити чата
     public void buttonClickChat(View view) {
         System.out.println("The *Chat* button is pressed");
-        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+        Intent intent = new Intent(MainPage.this, ChatActivity.class);
         startActivity(intent);
 
     }

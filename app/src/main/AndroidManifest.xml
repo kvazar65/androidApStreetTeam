@@ -33,10 +33,11 @@
 
         <activity
             android:name="Map.MapPage"
-            android:label="@string/title_activity_map_page">
+            android:label="@string/map_page_name"
+            >
 
         </activity>
-        <activity android:name="com.example.scaledrone.app.MainActivity">
+        <activity android:name="com.example.scaledrone.app.MainPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,14 +47,17 @@
         <activity android:name="com.example.scaledrone.app.ProfilePage">
 
         </activity>
-        <activity android:name="Chat.ChatActivity">
+        <activity android:name="Chat.ChatActivity"
+            android:label="@string/chat_page_name">
 
         </activity>
-        <activity android:name="Map.PlacesActivity">
+        <activity android:name="Map.PlacesManagement"
+            android:label="@string/placeadd_page_name">
 
         </activity>
 
-        <activity android:name="Map.MarkersPage">
+        <activity android:name="Map.MarkersPage"
+            android:label="@string/places_page_name">
 
         </activity>
 

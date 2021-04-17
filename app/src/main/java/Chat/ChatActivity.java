@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.scaledrone.app.MainActivity;
+import com.example.scaledrone.app.MainPage;
 import com.example.scaledrone.app.R;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -139,7 +139,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
-        Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+        Intent intent = new Intent(ChatActivity.this, MainPage.class);
         startActivity(intent);
 
     }

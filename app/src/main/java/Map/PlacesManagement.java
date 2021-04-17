@@ -11,7 +11,7 @@ import android.widget.EditText;
 import Database.DatabaseAdapter;
 import com.example.scaledrone.app.R;
 
-public class PlacesActivity extends AppCompatActivity {
+public class PlacesManagement extends AppCompatActivity {
 
     private EditText latBox;
     private EditText infoBox;

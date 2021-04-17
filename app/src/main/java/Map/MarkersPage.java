@@ -30,7 +30,7 @@ public class MarkersPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Place place =arrayAdapter.getItem(position);
                 if(place !=null) {
-                    Intent intent = new Intent(getApplicationContext(), PlacesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), PlacesManagement.class);
                     intent.putExtra("id", place.getId());
                     startActivity(intent);
                 }
@@ -52,7 +52,7 @@ public class MarkersPage extends AppCompatActivity {
     }
     // по нажатию на кнопку запускаем UserActivity для добавления данных
     public void add(View view){
-        Intent intent = new Intent(this, PlacesActivity.class);
+        Intent intent = new Intent(this, PlacesManagement.class);
         startActivity(intent);
     }
 }

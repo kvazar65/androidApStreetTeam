@@ -20,7 +20,7 @@ public class ProfilePage extends AppCompatActivity {
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
         System.out.println("The *Back* button is pressed");
-        Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+        Intent intent = new Intent(ProfilePage.this, MainPage.class);
         startActivity(intent);
 
     }

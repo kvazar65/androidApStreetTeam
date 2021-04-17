@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Приложение</string>
     <string name="count_initial_value">0</string>
     <string name="button_label">Send</string>
     <string name="toast_message">Hurra!</string>
     <string name="input_placeholder">Write a message</string>
-    <string name="title_activity_map_page">Map</string>
+
    <!-- <string name="google_maps_key">AIzaSyA4h0-dleui7a3W3R8_wbQW6sKXNMO8fh0</string>-->
     <string name="map_not_ready">Map is not ready yet</string>
+    <!--Панель навигации на карте-->
     <string name="duration">Скорость анимации</string>
     <string name="tilt_less">\u2193</string>
     <string name="tilt_more">\u2191</string>
@@ -18,4 +18,10 @@
     <string name="up_arrow">\u2191</string>
     <string name="animate">\u25B6</string>
     <string name="stop_animation">\u25A0</string>
+    <!--Названия страниц -->
+    <string name="app_name">Street Team</string>
+    <string name="map_page_name">Карта</string>
+    <string name="chat_page_name">Чат</string>
+    <string name="placeadd_page_name">Добавление новой локации</string>
+    <string name="places_page_name">Список локаций</string>
 </resources>
