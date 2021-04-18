@@ -40,7 +40,7 @@
         android:onClick="save"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintTop_toBottomOf="@+id/longitude"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/BackToList"
         app:layout_constraintRight_toLeftOf="@+id/deleteButton"
         />
     <Button
@@ -53,5 +53,16 @@
         app:layout_constraintTop_toBottomOf="@+id/longitude"
         app:layout_constraintLeft_toRightOf="@+id/saveButton"
         app:layout_constraintRight_toRightOf="parent"
+        />
+    <Button
+        android:id="@+id/BackToList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Назад"
+        android:onClick="BackToList"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/longitude"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/saveButton"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

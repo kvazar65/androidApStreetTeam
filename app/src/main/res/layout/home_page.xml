@@ -8,55 +8,62 @@
     android:background="@drawable/sport">
 
 
-    <Button
-        android:id="@+id/buttonMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="40dp"
-        android:onClick="buttonClickMap"
-        android:text="Карта"
-        app:icon="@android:drawable/ic_menu_mapmode"
+    <LinearLayout
+        android:id="@+id/MainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="52dp"
-        android:onClick="buttonClickProfile"
-        android:text="Профиль"
-        app:icon="@drawable/user_icon"
-        app:iconTint="@color/colorPrimary"
-        app:iconTintMode="multiply"
-        app:layout_constraintBottom_toTopOf="@+id/button23"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/button23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="250dp"
-        android:onClick="buttonClickChat"
-        android:text="Сообщения"
-        app:layout_constraintBottom_toTopOf="@+id/buttonMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/buttonMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/darker_gray"
+            android:onClick="buttonClickMap"
+            android:text="Карта"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@id/buttonChat"
+            app:layout_constraintLeft_toLeftOf="@id/MainMenu"
+            app:layout_constraintRight_toRightOf="@id/MainMenu"
+            app:layout_constraintTop_toTopOf="@id/MainMenu" />
+
+        <Button
+            android:id="@+id/buttonChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/darker_gray"
+            android:onClick="buttonClickChat"
+            android:text="Чат"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@id/button_places"
+            app:layout_constraintLeft_toLeftOf="@id/MainMenu"
+            app:layout_constraintRight_toRightOf="@id/MainMenu"
+            app:layout_constraintTop_toBottomOf="@id/buttonMap" />
+
+        <Button
+            android:id="@+id/button_places"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/darker_gray"
+            android:onClick="buttonClickProfile"
+            android:text="Локации"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@id/MainMenu"
+            app:layout_constraintLeft_toLeftOf="@id/MainMenu"
+            app:layout_constraintRight_toRightOf="@id/MainMenu"
+            app:layout_constraintTop_toBottomOf="@id/buttonChat" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

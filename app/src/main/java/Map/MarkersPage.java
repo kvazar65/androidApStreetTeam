@@ -10,9 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import Database.DatabaseAdapter;
+import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
 
 import java.util.List;
+import java.util.Map;
 
 public class MarkersPage extends AppCompatActivity {
 
@@ -49,6 +51,13 @@ public class MarkersPage extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, places);
         userList.setAdapter(arrayAdapter);
         adapter.close();
+    }
+    // Обработчик нажатия кнопки "назад"
+    public void buttonClickBack(View view) {
+        System.out.println("Кнопка *Назад* нажата");
+        Intent intent = new Intent(MarkersPage.this, MapPage.class);
+        startActivity(intent);
+
     }
     // по нажатию на кнопку запускаем UserActivity для добавления данных
     public void add(View view){

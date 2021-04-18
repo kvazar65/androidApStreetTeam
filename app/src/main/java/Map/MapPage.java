@@ -10,14 +10,19 @@ package Map;
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
@@ -42,25 +47,14 @@ import Database.DatabaseAdapter;
 public class MapPage extends AppCompatActivity implements
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener,
-
+        ActivityCompat.OnRequestPermissionsResultCallback,
         OnMapReadyCallback {
 
-
-
-    /**
-     Величина, на которую прокручивается камера. Величина  в необработанных пикселях, а не в dp
-     (density-independent pixels).
-     */
-    private static final int SCROLL_BY_PX = 100;
-
-
-
+    private static final int SCROLL_BY_PX = 100; // Величина, на которую прокручивается камера. Величина  в необработанных пикселях, а не в dp (density-independent pixels).
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private boolean permissionDenied = false;
     private GoogleMap map;
-    /**
-     * Keeps track of the selected marker.
-     */
-    private Marker mSelectedMarker;
-
+    private Marker mSelectedMarker; //Keeps track of the selected marker.
     private DatabaseAdapter databaseAdapter;
     private CompoundButton animateToggle;
     private CompoundButton customDurationToggle;
@@ -72,14 +66,10 @@ public class MapPage extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
-
         animateToggle = findViewById(R.id.animate);
         customDurationToggle = findViewById(R.id.duration_toggle);
         customDurationBar = findViewById(R.id.duration_bar);
-
         updateEnabledState();
-
-
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -94,14 +84,12 @@ public class MapPage extends AppCompatActivity implements
         // скрывает информацию о текущем маркере при нажатии на карту
         mSelectedMarker = null;
     }
-
     @Override
     public boolean onMarkerClick(final Marker marker) {
         if (marker.equals(mSelectedMarker)) {
             mSelectedMarker = null;
             return true;
         }
-
         mSelectedMarker = marker;
         return false;
     }
@@ -114,14 +102,13 @@ public class MapPage extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        enableMyLocation();
         databaseAdapter.open();
         makeMarkerFromDatabase();
         map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(true);
         map.setOnMarkerClickListener(this);
         map.setOnMapClickListener(this);
-
-
     }
 
     private void makeMarkerFromDatabase() {
@@ -134,6 +121,43 @@ public class MapPage extends AppCompatActivity implements
         float zoom = 10;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(msc,zoom));
     }
+/** Часть кода отвечающуая за определение собственной локации. Начало */
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (map != null) {
+                map.setMyLocationEnabled(true);
+            }
+        } else {
+            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            enableMyLocation();
+        } else {
+            permissionDenied = true;
+        }
+    }
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+    /** Часть кода отвечающуая за определение собственной локации. Конец */
 
 
     /**
@@ -148,14 +172,7 @@ public class MapPage extends AppCompatActivity implements
         return true;
     }
 
-
-
-
-
-
-    /**
-     * Called when the stop button is clicked.
-     */
+    // кнопка остановки анимации
     public void onStopAnimation(View view) {
         if (!checkReady()) {
             return;
@@ -164,9 +181,7 @@ public class MapPage extends AppCompatActivity implements
         map.stopAnimation();
     }
 
-    /**
-     * Called when the zoom in button (the one with the +) is clicked.
-     */
+    // приближение карты
     public void onZoomIn(View view) {
         if (!checkReady()) {
             return;
@@ -175,9 +190,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.zoomIn());
     }
 
-    /**
-     * Called when the zoom out button (the one with the -) is clicked.
-     */
+    // отдаление карты
     public void onZoomOut(View view) {
         if (!checkReady()) {
             return;
@@ -185,10 +198,7 @@ public class MapPage extends AppCompatActivity implements
 
         changeCamera(CameraUpdateFactory.zoomOut());
     }
-
-    /**
-     * Called when the tilt more button (the one with the /) is clicked.
-     */
+    // увеличение наклона
     public void onTiltMore(View view) {
         if (!checkReady()) {
             return;
@@ -206,9 +216,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    /**
-     * Called when the tilt less button (the one with the \) is clicked.
-     */
+    // умненьшение наклона
     public void onTiltLess(View view) {
         if (!checkReady()) {
             return;
@@ -227,9 +235,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    /**
-    <
-     */
+    // Стрелка влево
     public void onScrollLeft(View view) {
         if (!checkReady()) {
             return;
@@ -238,9 +244,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.scrollBy(-SCROLL_BY_PX, 0));
     }
 
-    /**
-    >
-     */
+    // Стрелка вправо
     public void onScrollRight(View view) {
         if (!checkReady()) {
             return;
@@ -249,9 +253,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.scrollBy(SCROLL_BY_PX, 0));
     }
 
-    /**
-     ^
-     */
+    // Стрелка вверх
     public void onScrollUp(View view) {
         if (!checkReady()) {
             return;
@@ -260,9 +262,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.scrollBy(0, -SCROLL_BY_PX));
     }
 
-    /**
-     v
-     */
+   // Стрелка вниз
     public void onScrollDown(View view) {
         if (!checkReady()) {
             return;
@@ -271,23 +271,19 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(CameraUpdateFactory.scrollBy(0, SCROLL_BY_PX));
     }
 
-    /**
-     * Called when the animate button is toggled
-     */
+    //Вызывается при переключении кнопки анимации.
     public void onToggleAnimate(View view) {
         updateEnabledState();
     }
 
-    /**
-     * Called when the custom duration checkbox is toggled
-     */
+
+    //Вызывается при переключении флажка пользовательского управления скоростью анимации.
     public void onToggleCustomDuration(View view) {
         updateEnabledState();
     }
 
-    /**
-     * Update the enabled state of the custom duration controls.
-     */
+
+    //Обновление активного состояния пользовательского управления скоростью анимации и анимации.
     private void updateEnabledState() {
         customDurationToggle.setEnabled(animateToggle.isChecked());
         customDurationBar
@@ -298,10 +294,7 @@ public class MapPage extends AppCompatActivity implements
         changeCamera(update, null);
     }
 
-    /**
-     * Change the camera position by moving or animating the camera depending on the state of the
-     * animate toggle button.
-     */
+    // Меняет положение камеры с анимацией или нет в зависимости от нажатия кнопки анимации
     private void changeCamera(CameraUpdate update, CancelableCallback callback) {
         if (animateToggle.isChecked()) {
             if (customDurationToggle.isChecked()) {
@@ -317,7 +310,7 @@ public class MapPage extends AppCompatActivity implements
     }
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
-        System.out.println("The *Back* button is pressed");
+        System.out.println("Кнопка *Назад* нажата");
         Intent intent = new Intent(MapPage.this, MainPage.class);
         startActivity(intent);
 
@@ -325,7 +318,7 @@ public class MapPage extends AppCompatActivity implements
 
     // Обработчик нажатия кнопки "Список локаций"
     public void markersClick(View view) {
-        System.out.println("The *Places list* button is pressed");
+        System.out.println("Кнопка *Список локаций* нажата");
         Intent intent = new Intent(MapPage.this, MarkersPage.class);
         startActivity(intent);
     }

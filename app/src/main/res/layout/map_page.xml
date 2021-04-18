@@ -30,12 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="#43322C"
+            android:background="@android:color/darker_gray"
             android:onClick="buttonClickBack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/abc_vector_test"
-            tools:srcCompat="@drawable/abc_vector_test" />
+            app:srcCompat="@android:drawable/ic_menu_revert"
+            tools:srcCompat="@android:drawable/ic_menu_revert" />
 
         <ImageButton
             android:id="@+id/MarkerButton"
@@ -43,12 +43,12 @@
             android:layout_height="40dp"
 
             android:layout_weight="1"
-            android:background="#CDDC39"
+            android:background="@android:color/darker_gray"
             android:onClick="markersClick"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/abc_vector_test"
-            tools:srcCompat="@drawable/abc_vector_test" />
+            app:srcCompat="@android:drawable/ic_menu_add"
+            tools:srcCompat="@android:drawable/ic_menu_add" />
     </LinearLayout>
 
     <fragment

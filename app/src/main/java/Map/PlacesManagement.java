@@ -78,6 +78,11 @@ public class PlacesManagement extends AppCompatActivity {
         adapter.close();
         goHome();
     }
+    public void BackToList(View view){
+        System.out.println("Кнопка *Назад* нажата");
+        Intent intent = new Intent(PlacesManagement.this, MarkersPage.class);
+        startActivity(intent);
+    }
     private void goHome(){
         Intent intent = new Intent(this, MarkersPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
