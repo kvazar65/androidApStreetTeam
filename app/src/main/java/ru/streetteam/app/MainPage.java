@@ -22,6 +22,8 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.home_page);
+        Intent intent = new Intent(MainPage.this, MapPage.class);
+        startActivity(intent);
         System.out.println("                                                                     ");
         System.out.println("--------------------------------------------------------------------");
         System.out.println("                                 Main page open");

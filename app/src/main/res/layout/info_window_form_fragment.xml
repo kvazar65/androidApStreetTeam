@@ -16,6 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="Location title"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -24,15 +26,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Location type" />
+            android:text="Location type"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="217dp"
+        android:layout_height="40dp"
         android:layout_below="@id/bar"
+        android:layout_alignStart="@+id/bar"
+        android:layout_alignEnd="@+id/bar"
         android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="57dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="1dp"
         android:text="Открыть чат" />
 
 

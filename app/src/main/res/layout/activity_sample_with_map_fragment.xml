@@ -5,19 +5,11 @@
     android:layout_height="match_parent"
     tools:context="android.view.animation.ScaleAnimation">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="test" />
-
     <fragment
         android:id="@+id/infoWindowMap"
         android:name="com.appolica.interactiveinfowindow.fragment.MapInfoWindowFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="166dp" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

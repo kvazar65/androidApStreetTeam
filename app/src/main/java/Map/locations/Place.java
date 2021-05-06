@@ -17,10 +17,18 @@ public class Place {
     private final float latitude;
     private final float longitude;
 
+    private final String channelId;
+    private final String roomName;
+
 
     @NonNull
     @Override
     public String toString() {
-        return String.format(" Name: %s \n Info: %s \n Lat %s : Long %s",this.label,this.info,this.latitude,this.longitude);
+        return String.format(" Name: %s \n Info: %s \n Lat %s : Long %s \n Room name: %s",
+                this.label,
+                this.info,
+                this.latitude,
+                this.longitude,
+                this.roomName);
     }
 }

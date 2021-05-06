@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.HistoryRoomListener;
@@ -19,14 +20,16 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 import com.scaledrone.lib.SubscribeOptions;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 import lombok.Data;
 
 public class ChatActivity extends AppCompatActivity implements RoomListener {
 
-    private String channelID = "w6wSvI0YGYWlqQuF";
-    private String roomName = "observable-room";
+    private String roomName;
     private EditText editText;
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
@@ -48,7 +51,10 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
 
-        scaledrone = new Scaledrone(channelID, data);
+        Bundle chatInfo = getIntent().getExtras();
+        String channelId = (String) chatInfo.get("channelId");
+        roomName = (String) chatInfo.get("roomName");
+        scaledrone = new Scaledrone(channelId, data);
         scaledrone.connect(new Listener() {
             @Override
             public void onOpen() {
@@ -59,7 +65,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
                 room.listenToHistoryEvents(new HistoryRoomListener() {
                     @Override
                     public void onHistoryMessage(Room room, com.scaledrone.lib.Message message) {
-                        scaledrone.publish(room.getName(),message.getData());
+                        scaledrone.publish(room.getName(), message.getData());
                     }
                 });
             }
@@ -84,7 +90,11 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     public void sendMessage(View view) {
         String message = editText.getText().toString();
         if (message.length() > 0) {
-            scaledrone.publish(roomName, message);
+            StringBuilder sb = new StringBuilder(message);
+            SimpleDateFormat formatter = new SimpleDateFormat("d.MM HH:mm ");
+            Date date = new Date(System.currentTimeMillis());
+            sb.insert(0, formatter.format(date));
+            scaledrone.publish(roomName, sb);
             editText.getText().clear();
         }
     }
@@ -119,8 +129,8 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     }
 
     private String getRandomName() {
-        String[] adjs = {"Могучий", "Быстрый", "Ловкий", "Прыткий", "Сильный", "Опытный", "Непобедимый", "Неостановимый", "Спортивный", "Неудержимый", "Двужильный", "Знаменитый","Талантливый","Тренированный","Настоящий","Выдающийся" };
-        String[] nouns = {"Спортсмен","Бегун","Прыгун","Юниор","Тяжелоатлет","Шахматист","Бык","Новичок","Отлыниватель","Арбитр","Судья","Фанат","Пловец","Чемпион","Фаворит","Незнакомец","Проходимец","Спринтер"};
+        String[] adjs = {"Могучий", "Быстрый", "Ловкий", "Прыткий", "Сильный", "Опытный", "Непобедимый", "Неостановимый", "Спортивный", "Неудержимый", "Двужильный", "Знаменитый", "Талантливый", "Тренированный", "Настоящий", "Выдающийся"};
+        String[] nouns = {"Спортсмен", "Бегун", "Прыгун", "Юниор", "Тяжелоатлет", "Шахматист", "Бык", "Новичок", "Отлыниватель", "Арбитр", "Судья", "Фанат", "Пловец", "Чемпион", "Фаворит", "Незнакомец", "Проходимец", "Спринтер"};
         return (
                 adjs[(int) Math.floor(Math.random() * adjs.length)] +
                         "_" +

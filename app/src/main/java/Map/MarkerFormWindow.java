@@ -21,7 +21,7 @@ import ru.streetteam.app.R;
 @AllArgsConstructor
 public class MarkerFormWindow extends Fragment {
 
-    private final Marker marker;
+    private final ChannelInfoMarker channelInfoMarker;
     public final MapPage mapPage;
 
     @Nullable
@@ -39,6 +39,7 @@ public class MarkerFormWindow extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Marker marker = channelInfoMarker.getDefaultMarker();
         TextView locationTitle = getView().findViewById(R.id.markerTitle);
         locationTitle.setText(marker.getTitle());
 
@@ -50,6 +51,10 @@ public class MarkerFormWindow extends Fragment {
             public void onClick(View v) {
                 //сделать переход на чат
                 Intent intent = new Intent(mapPage, ChatActivity.class);
+                Bundle chatInfo = new Bundle();
+                chatInfo.putString("channelId", channelInfoMarker.getChannelId());
+                chatInfo.putString("roomName", channelInfoMarker.getRoomName());
+                intent.putExtras(chatInfo);
                 startActivity(intent);
             }
         };

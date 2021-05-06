@@ -18,10 +18,13 @@ public class PlacesManagement extends AppCompatActivity {
     private EditText infoBox;
     private EditText labelBox;
     private EditText lonBox;
+    private EditText chanId;
+    private EditText roomName;
     private Button delButton;
 
     private DatabaseAdapter adapter;
-    private long userId=0;
+    private long userId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,8 @@ public class PlacesManagement extends AppCompatActivity {
         infoBox = (EditText) findViewById(R.id.info);
         latBox = (EditText) findViewById(R.id.latitude);
         lonBox = (EditText) findViewById(R.id.longitude);
+        chanId = (EditText) findViewById(R.id.channelId);
+        roomName = (EditText) findViewById(R.id.roomName);
         delButton = (Button) findViewById(R.id.deleteButton);
         adapter = new DatabaseAdapter(this);
 
@@ -44,7 +49,7 @@ public class PlacesManagement extends AppCompatActivity {
         if (userId > 0) {
             // получаем элемент по id из бд
             adapter.open();
-            Place place = adapter.getUser(userId);
+            Place place = adapter.getPlace(userId);
             labelBox.setText(place.getLabel());
             latBox.setText(String.valueOf(place.getLatitude()));
             lonBox.setText(String.valueOf(place.getLongitude()));
@@ -55,13 +60,15 @@ public class PlacesManagement extends AppCompatActivity {
         }
     }
 
-    public void save(View view){
+    public void save(View view) {
         System.out.println("The *Save* button is pressed");
         String label = labelBox.getText().toString();
         String info = infoBox.getText().toString();
         float latitude = Float.parseFloat(latBox.getText().toString());
         float longitude = Float.parseFloat(lonBox.getText().toString());
-        Place place = new Place(userId, label,info ,latitude, longitude);
+        String channelId = chanId.getText().toString();
+        String roomNam = roomName.getText().toString();
+        Place place = new Place(userId, label, info, latitude, longitude, channelId, roomNam);
 
         adapter.open();
         if (userId > 0) {

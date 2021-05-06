@@ -30,7 +30,15 @@ public class DatabaseAdapter {
     }
 
     private Cursor getAllEntries() {
-        String[] columns = new String[]{DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_LATITUDE,DatabaseHelper.COLUMN_LABEL,DatabaseHelper.COLUMN_INFO,DatabaseHelper.COLUMN_LONGITUDE};
+        String[] columns = new String[]{
+                DatabaseHelper.COLUMN_ID,
+                DatabaseHelper.COLUMN_LATITUDE,
+                DatabaseHelper.COLUMN_LABEL,
+                DatabaseHelper.COLUMN_INFO,
+                DatabaseHelper.COLUMN_LONGITUDE,
+                DatabaseHelper.COLUMN_CHANNEL_ID,
+                DatabaseHelper.COLUMN_ROOM_NAME
+        };
         return database.query(DatabaseHelper.TABLE, columns, null, null, null, null, null);
     }
 
@@ -43,7 +51,9 @@ public class DatabaseAdapter {
             String info = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_INFO));
             float latitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
             float longitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            places.add(new Place(id, label, info, latitude, longitude));
+            String channelId = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CHANNEL_ID));
+            String roomName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ROOM_NAME));
+            places.add(new Place(id, label, info, latitude, longitude, channelId, roomName));
         }
         cursor.close();
         return places;
@@ -53,7 +63,7 @@ public class DatabaseAdapter {
         return DatabaseUtils.queryNumEntries(database, DatabaseHelper.TABLE);
     }
 
-    public Place getUser(long id) {
+    public Place getPlace(long id) {
         Place place = null;
         String query = String.format("SELECT * FROM %s WHERE %s=?", DatabaseHelper.TABLE, DatabaseHelper.COLUMN_ID);
         Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(id)});
@@ -62,7 +72,9 @@ public class DatabaseAdapter {
             String info = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_INFO));
             float latitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LATITUDE));
             float longitude = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONGITUDE));
-            place = new Place(id, label,label, latitude, longitude);
+            String channelId = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CHANNEL_ID));
+            String roomName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ROOM_NAME));
+            place = new Place(id, label, info, latitude, longitude, channelId, roomName);
         }
         cursor.close();
         return place;

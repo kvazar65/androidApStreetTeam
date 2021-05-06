@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Database.DatabaseAdapter;
 
@@ -53,7 +54,7 @@ public class MapPage extends AppCompatActivity implements
     private CompoundButton animateToggle;
     private CompoundButton customDurationToggle;
     private SeekBar customDurationBar;
-    private Map<Marker, InfoWindow> infoWindowMap;
+    private Map<ChannelInfoMarker, InfoWindow> infoWindowMap;
     private InfoWindowManager infoWindowManager;
 
     @Override
@@ -78,9 +79,11 @@ public class MapPage extends AppCompatActivity implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        InfoWindow infoWindow = infoWindowMap.get(marker);
-        if (infoWindow != null) {
-            infoWindowManager.toggle(infoWindow, true);
+        Set<ChannelInfoMarker> channelInfoMarkers = infoWindowMap.keySet();
+        for (ChannelInfoMarker mark : channelInfoMarkers) {
+            if (mark.getDefaultMarker().equals(marker)) {
+                infoWindowManager.toggle(infoWindowMap.get(mark), true);
+            }
         }
         return true;
     }
@@ -112,12 +115,18 @@ public class MapPage extends AppCompatActivity implements
                     new MarkerOptions().position(position)
                             .snippet(String.valueOf(place.getInfo()))
                             .title(String.valueOf(place.getLabel())));
+
+            ChannelInfoMarker infoMarker = new ChannelInfoMarker(marker,
+                    place.getChannelId(),
+                    place.getRoomName());
+
             InfoWindow infoWindowObj = new InfoWindow(
                     marker,
-                    new InfoWindow.MarkerSpecification(5, 39),
-                    new MarkerFormWindow(marker, this));
+                    new InfoWindow.MarkerSpecification(5, 89),
+                    new MarkerFormWindow(infoMarker, this));
 
-            infoWindowMap.put(marker, infoWindowObj);
+
+            infoWindowMap.put(infoMarker, infoWindowObj);
         }
 
         LatLng msc = new LatLng(55.74, 37.62);

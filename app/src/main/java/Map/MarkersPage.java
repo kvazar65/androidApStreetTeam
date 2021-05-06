@@ -20,6 +20,7 @@ public class MarkersPage extends AppCompatActivity {
 
     private ListView userList;
     ArrayAdapter<Place> arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
