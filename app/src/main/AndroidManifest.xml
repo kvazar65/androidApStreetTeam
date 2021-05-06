@@ -47,8 +47,7 @@
             >
 
         </activity>
-        <activity android:name="Map.PlacesManagement"
-          >
+        <activity android:name="Map.locations.PlacesManagement">
 
         </activity>
 

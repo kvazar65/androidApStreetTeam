@@ -1,4 +1,4 @@
-package Map;
+package Map.locations;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import Database.DatabaseAdapter;
+import Map.MarkersPage;
 import ru.streetteam.app.R;
 
 public class PlacesManagement extends AppCompatActivity {

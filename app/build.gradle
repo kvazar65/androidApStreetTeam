@@ -33,4 +33,5 @@ dependencies {
     androidTestImplementation 'com.androidx.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.scaledrone:scaledrone-java:0.6.0'
+    implementation 'com.appolica:interactive-info-window:v1.0.6'
 }

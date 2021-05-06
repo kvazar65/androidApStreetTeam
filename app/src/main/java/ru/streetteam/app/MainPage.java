@@ -32,14 +32,12 @@ public class MainPage extends AppCompatActivity {
         System.out.println("The *Profile* button is pressed");
         Intent intent = new Intent(MainPage.this, MarkersPage.class);
         startActivity(intent);
-
     }
     // Обработчик нажатия для перехода к активити карты
     public void buttonClickMap(View view) {
         System.out.println("The *Map* button is pressed");
         Intent intent = new Intent(MainPage.this, MapPage.class);
         startActivity(intent);
-
     }
     // Обработчик нажатия для перехода к активити чата
     public void buttonClickChat(View view) {

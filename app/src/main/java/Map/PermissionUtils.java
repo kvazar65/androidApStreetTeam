@@ -20,10 +20,10 @@ import ru.streetteam.app.R;
 /**
  * Служебный класс для доступа к разрешениям среды выполнения.
  */
-public abstract class PermissionUtils {
+public class PermissionUtils {
 
     /**
-     Запрашивает разрешение на точное местоположение.
+     * Запрашивает разрешение на точное местоположение.
      */
     public static void requestPermission(AppCompatActivity activity, int requestId,
                                          String permission, boolean finishActivity) {

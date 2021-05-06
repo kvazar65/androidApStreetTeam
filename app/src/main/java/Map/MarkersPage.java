@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import Database.DatabaseAdapter;
-import ru.streetteam.app.MainPage;
+import Map.locations.Place;
+import Map.locations.PlacesManagement;
 import ru.streetteam.app.R;
 
 import java.util.List;
-import java.util.Map;
 
 public class MarkersPage extends AppCompatActivity {
 

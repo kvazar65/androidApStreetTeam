@@ -1,4 +1,4 @@
-package Map;
+package Map.locations;
 
 import androidx.annotation.NonNull;
 
