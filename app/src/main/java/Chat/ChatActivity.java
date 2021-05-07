@@ -90,13 +90,17 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     public void sendMessage(View view) {
         String message = editText.getText().toString();
         if (message.length() > 0) {
-            StringBuilder sb = new StringBuilder(message);
-            SimpleDateFormat formatter = new SimpleDateFormat("d.MM HH:mm ");
-            Date date = new Date(System.currentTimeMillis());
-            sb.insert(0, formatter.format(date));
-            scaledrone.publish(roomName, sb);
+            scaledrone.publish(roomName, addDateToMsg(message));
             editText.getText().clear();
         }
+    }
+
+    private StringBuilder addDateToMsg(String message) {
+        StringBuilder sb = new StringBuilder(message);
+        SimpleDateFormat formatter = new SimpleDateFormat("d.MM HH:mm  ");
+        Date date = new Date(System.currentTimeMillis());
+        sb.insert(0, formatter.format(date));
+        return sb;
     }
 
     @Override

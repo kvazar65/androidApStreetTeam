@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class MessageAdapter extends BaseAdapter {
 
     List<Message> messages = new ArrayList<Message>();
@@ -53,18 +51,26 @@ public class MessageAdapter extends BaseAdapter {
         MessageViewHolder holder = new MessageViewHolder();
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Message message = messages.get(i);
-
+        String[] split = message.getText().split("\\s\\s");
         if (message.isBelongsToCurrentUser()) {
             convertView = messageInflater.inflate(R.layout.my_message, null);
+
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+            holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
+
             convertView.setTag(holder);
-            holder.messageBody.setText(message.getText());
+            setMsgText(holder, split);
+
         } else {
             convertView = messageInflater.inflate(R.layout.their_message, null);
             holder.avatar = (View) convertView.findViewById(R.id.avatar);
-            holder.name = (TextView) convertView.findViewById(R.id.longitude);
+            holder.name = (TextView) convertView.findViewById(R.id.their_name);
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+            holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
+
             convertView.setTag(holder);
+
+            setMsgText(holder, split);
 
             holder.name.setText(message.getMemberData().getName());
             holder.messageBody.setText(message.getText());
@@ -75,10 +81,20 @@ public class MessageAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private void setMsgText(MessageViewHolder holder, String[] split) {
+        if (split.length > 1) {
+            holder.messageBody.setText(split[1]);
+            holder.messageTime.setText(split[0]);
+        } else {
+            holder.messageBody.setText(split[0]);
+        }
+    }
+
     static class MessageViewHolder {
         public View avatar;
         public TextView name;
         public TextView messageBody;
+        public TextView messageTime;
     }
 }
 

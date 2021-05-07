@@ -2,22 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingVertical="10dp"
     android:paddingRight="15dp"
     android:paddingLeft="60dp"
     android:clipToPadding="false">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/mymessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/message_body"
-        android:background="@drawable/my_message"
-        android:textColor="#fff"
-        android:padding="10dp"
-        android:elevation="2dp"
-        android:textSize="18dp"
-        android:layout_alignParentRight="true"
-        android:text="Placeholder message"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="15.06 17:23"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/mymessage"
+            app:layout_constraintRight_toRightOf="@+id/message_body"
+            app:layout_constraintTop_toTopOf="@+id/mymessage" />
+
+        <TextView
+            android:id="@+id/message_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_message"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:text="Placeholder message"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mymessage"
+            app:layout_constraintRight_toRightOf="@+id/mymessage"
+            app:layout_constraintTop_toTopOf="@+id/mymessage" />
+    </LinearLayout>
 
 </RelativeLayout>

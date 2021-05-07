@@ -2,41 +2,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingVertical="10dp"
     android:paddingLeft="15dp"
     android:paddingRight="60dp"
     android:clipToPadding="false">
 
-    <View
-        android:id="@+id/avatar"
-        android:layout_alignParentLeft="true"
-        android:scaleType="centerInside"
-        android:background="@drawable/circle"
-        android:layout_width="34dp"
-        android:layout_height="34dp" />
-
-    <TextView
-        android:id="@+id/longitude"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_alignTop="@+id/avatar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/first_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:text="Rose"/>
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/second_bar">
 
-    <TextView
-        android:id="@+id/message_body"
-        android:layout_width="wrap_content"
+        <View
+            android:id="@+id/avatar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/circle"
+            android:scaleType="center" />
+
+        <TextView
+            android:id="@+id/their_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rose"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/longitude"
-        android:layout_alignLeft="@+id/longitude"
-        android:background="@drawable/their_message"
-        android:elevation="2dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
-        android:text="How are you doing? This is a long message that should probably wrap."
-        android:textColor="#FFFFFF"
-        android:textSize="18dp" />
+        android:layout_below="@+id/first_bar"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/first_bar">
+
+        <TextView
+            android:id="@+id/message_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/their_message"
+            android:elevation="2dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="Their message"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="15.06 17:23"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/message_body" />
+
+    </LinearLayout>
 
 </RelativeLayout>
