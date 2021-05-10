@@ -46,7 +46,7 @@ public class MarkersPage extends AppCompatActivity {
         super.onResume();
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
-
+//TODO некоректно отображает их сообщение
         List<Place> places = adapter.getPlaces();
 
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, places);
