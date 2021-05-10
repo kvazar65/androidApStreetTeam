@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Map.MapPage;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
 
@@ -20,20 +25,27 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 import com.scaledrone.lib.SubscribeOptions;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.TimeZone;
 
 import lombok.Data;
 
 public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     private String roomName;
+    private String roomTitle;
     private EditText editText;
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
+    private TextView chatName;
+    private String channelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,27 +59,22 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
         messageAdapter = new MessageAdapter(this);
         messagesView = (ListView) findViewById(R.id.messages_view);
+        chatName = (TextView) findViewById(R.id.chat_name);
         messagesView.setAdapter(messageAdapter);
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
 
         Bundle chatInfo = getIntent().getExtras();
-        String channelId = (String) chatInfo.get("channelId");
+        channelId = (String) chatInfo.get("channelId");
         roomName = (String) chatInfo.get("roomName");
+        roomTitle = (String) chatInfo.get("roomTitle");
+        chatName.setText(roomTitle);
         scaledrone = new Scaledrone(channelId, data);
         scaledrone.connect(new Listener() {
             @Override
             public void onOpen() {
                 System.out.println("Соединение с Scaledrone открыто ");
-                Room room = scaledrone.subscribe(roomName,
-                        ChatActivity.this,
-                        new SubscribeOptions(5));
-                room.listenToHistoryEvents(new HistoryRoomListener() {
-                    @Override
-                    public void onHistoryMessage(Room room, com.scaledrone.lib.Message message) {
-                        scaledrone.publish(room.getName(), message.getData());
-                    }
-                });
+                scaledrone.subscribe(roomName, ChatActivity.this);
             }
 
             @Override
@@ -98,7 +105,9 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     private StringBuilder addDateToMsg(String message) {
         StringBuilder sb = new StringBuilder(message);
         SimpleDateFormat formatter = new SimpleDateFormat("d.MM HH:mm  ");
+        //formatter.setTimeZone(TimeZone.getTimeZone("UTC+06"));
         Date date = new Date(System.currentTimeMillis());
+        date.setHours(date.getHours() + 3);
         sb.insert(0, formatter.format(date));
         return sb;
     }
@@ -153,10 +162,22 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
     // Обработчик нажатия кнопки "назад"
     public void buttonClickBack(View view) {
-        Intent intent = new Intent(ChatActivity.this, MainPage.class);
+        Intent intent = new Intent(ChatActivity.this, MapPage.class);
         startActivity(intent);
 
     }
+
+    // Обработчик нажатия кнопки "История"
+    public void buttonClickHistory(View view) {
+        Intent intent = new Intent(ChatActivity.this, ChatHistory.class);
+        Bundle chatInfo = new Bundle();
+        chatInfo.putString("channelId", channelId);
+        chatInfo.putString("roomName", roomName);
+        chatInfo.putString("roomTitle", roomTitle);
+        intent.putExtras(chatInfo);
+        startActivity(intent);
+    }
+
 
     @Data
     static class MemberData {

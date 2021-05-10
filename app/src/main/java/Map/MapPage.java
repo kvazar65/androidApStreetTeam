@@ -14,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import Chat.ChannelInfoMarker;
+import Map.locations.PermissionUtils;
 import Map.locations.Place;
-import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
 
 import com.appolica.interactiveinfowindow.InfoWindow;
@@ -197,13 +198,6 @@ public class MapPage extends AppCompatActivity implements
         updateEnabledState();
     }
 
-    // Обработчик нажатия кнопки "назад"
-    public void buttonClickBack(View view) {
-        System.out.println("Кнопка *Назад* нажата");
-        Intent intent = new Intent(MapPage.this, MainPage.class);
-        startActivity(intent);
-
-    }
 
     // Обработчик нажатия кнопки "Список локаций"
     public void markersClick(View view) {

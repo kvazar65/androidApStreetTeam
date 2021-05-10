@@ -6,16 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.model.Marker;
 
+import Chat.ChannelInfoMarker;
 import Chat.ChatActivity;
 import lombok.AllArgsConstructor;
-import ru.streetteam.app.MainPage;
 import ru.streetteam.app.R;
 
 @AllArgsConstructor
@@ -39,10 +38,9 @@ public class MarkerFormWindow extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Marker marker = channelInfoMarker.getDefaultMarker();
+        final Marker marker = channelInfoMarker.getDefaultMarker();
         TextView locationTitle = getView().findViewById(R.id.markerTitle);
         locationTitle.setText(marker.getTitle());
-
         TextView locationType = getView().findViewById(R.id.markerType);
         locationType.setText(marker.getSnippet());
 
@@ -54,6 +52,7 @@ public class MarkerFormWindow extends Fragment {
                 Bundle chatInfo = new Bundle();
                 chatInfo.putString("channelId", channelInfoMarker.getChannelId());
                 chatInfo.putString("roomName", channelInfoMarker.getRoomName());
+                chatInfo.putString("roomTitle", marker.getTitle());
                 intent.putExtras(chatInfo);
                 startActivity(intent);
             }

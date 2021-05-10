@@ -53,6 +53,9 @@ public class PlacesManagement extends AppCompatActivity {
             labelBox.setText(place.getLabel());
             latBox.setText(String.valueOf(place.getLatitude()));
             lonBox.setText(String.valueOf(place.getLongitude()));
+            chanId.setText(String.valueOf(place.getChannelId()));
+            roomName.setText(String.valueOf(place.getRoomName()));
+            infoBox.setText(String.valueOf(place.getInfo()));
             adapter.close();
         } else {
             // скрываем кнопку удаления

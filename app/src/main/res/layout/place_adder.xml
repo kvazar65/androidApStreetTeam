@@ -11,15 +11,26 @@
         android:layout_height="wrap_content"
         android:hint="Введите название маркера"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/info"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Введите описание маркера"
+        app:layout_constraintTop_toBottomOf="@+id/label"
         app:layout_constraintBottom_toTopOf="@+id/latitude"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
     <EditText
         android:id="@+id/latitude"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Введите долготу"
-        app:layout_constraintTop_toBottomOf="@+id/label"
+        app:layout_constraintTop_toBottomOf="@+id/info"
         app:layout_constraintBottom_toTopOf="@+id/longitude"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -58,33 +69,35 @@
         android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Сохранить"
+        android:background="@color/colorPrimary"
         android:onClick="save"
+        android:text="Сохранить"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/roomName"
         app:layout_constraintLeft_toRightOf="@+id/BackToList"
         app:layout_constraintRight_toLeftOf="@+id/deleteButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/roomName" />
+
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Удалить"
+        android:background="@color/colorPrimaryDark"
         android:onClick="delete"
+        android:text="Удалить"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/roomName"
         app:layout_constraintLeft_toRightOf="@+id/saveButton"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/roomName" />
+
     <Button
         android:id="@+id/BackToList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Назад"
+        android:background="@color/colorPrimaryDark"
         android:onClick="BackToList"
+        android:text="Назад"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/roomName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/saveButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/roomName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

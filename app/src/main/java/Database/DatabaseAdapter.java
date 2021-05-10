@@ -87,7 +87,8 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_INFO, place.getInfo());
         cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
         cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
-
+        cv.put(DatabaseHelper.COLUMN_CHANNEL_ID, place.getChannelId());
+        cv.put(DatabaseHelper.COLUMN_ROOM_NAME, place.getRoomName());
         return database.insert(DatabaseHelper.TABLE, null, cv);
     }
 
@@ -106,6 +107,8 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_INFO, place.getInfo());
         cv.put(DatabaseHelper.COLUMN_LATITUDE, place.getLatitude());
         cv.put(DatabaseHelper.COLUMN_LONGITUDE, place.getLongitude());
+        cv.put(DatabaseHelper.COLUMN_CHANNEL_ID, place.getChannelId());
+        cv.put(DatabaseHelper.COLUMN_ROOM_NAME, place.getRoomName());
         return database.update(DatabaseHelper.TABLE, cv, whereClause, null);
     }
 }

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorPrimary"
             android:onClick="buttonClickBack"
             app:srcCompat="@drawable/abc_vector_test"
             tools:srcCompat="@drawable/abc_vector_test" />
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="8"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorPrimaryDark"
             android:onClick="add"
             android:text="Добавить" />
     </LinearLayout>

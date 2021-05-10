@@ -32,8 +32,7 @@
             android:value="AIzaSyA4h0-dleui7a3W3R8_wbQW6sKXNMO8fh0" />
 
         <activity
-            android:name="Map.MapPage"
-            >
+            android:name="Map.MapPage">
 
         </activity>
         <activity android:name="ru.streetteam.app.MainPage">
@@ -43,16 +42,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Chat.ChatActivity"
-            >
-
-        </activity>
+        <activity android:name="Chat.ChatActivity"></activity>
+        <activity android:name="Chat.ChatHistory"></activity>
         <activity android:name="Map.locations.PlacesManagement">
 
         </activity>
 
-        <activity android:name="Map.MarkersPage"
-           >
+        <activity android:name="Map.MarkersPage">
 
         </activity>
 

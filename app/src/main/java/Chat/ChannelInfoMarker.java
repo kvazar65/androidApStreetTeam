@@ -1,4 +1,4 @@
-package Map;
+package Chat;
 
 import com.google.android.gms.internal.maps.zzt;
 import com.google.android.gms.maps.model.Marker;
