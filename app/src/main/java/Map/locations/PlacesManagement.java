@@ -1,12 +1,19 @@
 package Map.locations;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import Database.DatabaseAdapter;
 import Map.MarkersPage;
@@ -21,7 +28,7 @@ public class PlacesManagement extends AppCompatActivity {
     private EditText chanId;
     private EditText roomName;
     private Button delButton;
-
+    final int DIALOG_EXIT = 1;
     private DatabaseAdapter adapter;
     private long userId = 0;
 
@@ -66,12 +73,38 @@ public class PlacesManagement extends AppCompatActivity {
     public void save(View view) {
         System.out.println("The *Save* button is pressed");
         String label = labelBox.getText().toString();
+        if (checkFieldLenght(label, "Введите Название маркера!")) {
+            return;
+        }
         String info = infoBox.getText().toString();
-        float latitude = Float.parseFloat(latBox.getText().toString());
-        float longitude = Float.parseFloat(lonBox.getText().toString());
+        if (checkFieldLenght(info, "Введите Описание канала!")) {
+            return;
+        }
+        String latitude = latBox.getText().toString();
+        if (checkFieldLenght(latitude, "Введите Широту!")) {
+            return;
+        }
+        String longitude = lonBox.getText().toString();
+        if (checkFieldLenght(longitude, "Введите Долготу!")) {
+            return;
+        }
         String channelId = chanId.getText().toString();
+        if (checkFieldLenght(channelId, "Введите ID комнаты!")) {
+            return;
+        }
         String roomNam = roomName.getText().toString();
-        Place place = new Place(userId, label, info, latitude, longitude, channelId, roomNam);
+        if (checkFieldLenght(roomNam, "Введите Имя комнаты!")) {
+            return;
+        }
+
+        Place place = new Place(
+                userId,
+                label,
+                info,
+                Float.parseFloat(latitude),
+                Float.parseFloat(longitude),
+                channelId,
+                roomNam);
 
         adapter.open();
         if (userId > 0) {
@@ -82,19 +115,72 @@ public class PlacesManagement extends AppCompatActivity {
         adapter.close();
         goHome();
     }
-    public void delete(View view){
-        System.out.println("The *Delete* button is pressed");
-        adapter.open();
-        adapter.delete(userId);
-        adapter.close();
-        goHome();
+
+    private boolean checkFieldLenght(String field, String s) {
+        if (field.equals("")) {
+            Toast toast = Toast.makeText(this, s, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            LinearLayout toastContainer = (LinearLayout) toast.getView();
+            ImageView WarnImageView = new ImageView(getApplicationContext());
+            WarnImageView.setImageResource(R.drawable.warning);
+            toastContainer.addView(WarnImageView, 0);
+            toast.show();
+            return true;
+        }
+        return false;
     }
-    public void BackToList(View view){
+
+
+    public void delete(View view) {
+
+        System.out.println("The *Delete* button is pressed");
+        showDialog(DIALOG_EXIT);
+
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        if (id == DIALOG_EXIT) {
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            // заголовок
+            adb.setTitle("Удаление маркера");
+            // сообщение
+            adb.setMessage("Вы уверены, что хотите удалить маркер?");
+            // кнопка положительного ответа
+            adb.setPositiveButton("Да", (DialogInterface.OnClickListener) myClickListener);
+            // кнопка отрицательного ответа
+            adb.setNegativeButton("Нет", (DialogInterface.OnClickListener) myClickListener);
+
+            // создаем диалог
+            return adb.create();
+        }
+        return super.onCreateDialog(id);
+    }
+
+    DialogInterface.OnClickListener myClickListener = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                // положительная кнопка
+                case Dialog.BUTTON_POSITIVE:
+                    adapter.open();
+                    adapter.delete(userId);
+                    adapter.close();
+                    finish();
+                    break;
+                // негативная кнопка
+                case Dialog.BUTTON_NEGATIVE:
+                    finish();
+                    break;
+            }
+        }
+    };
+
+    public void BackToList(View view) {
         System.out.println("Кнопка *Назад* нажата");
         Intent intent = new Intent(PlacesManagement.this, MarkersPage.class);
         startActivity(intent);
     }
-    private void goHome(){
+
+    private void goHome() {
         Intent intent = new Intent(this, MarkersPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);

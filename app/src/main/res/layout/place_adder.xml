@@ -29,21 +29,21 @@
         android:id="@+id/latitude"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Введите долготу"
-        app:layout_constraintTop_toBottomOf="@+id/info"
+        android:hint="Введите широту"
         app:layout_constraintBottom_toTopOf="@+id/longitude"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info" />
 
     <EditText
         android:id="@+id/longitude"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Введите широту"
-        app:layout_constraintTop_toBottomOf="@+id/latitude"
+        android:hint="Введите долготу"
         app:layout_constraintBottom_toTopOf="@+id/channelId"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latitude" />
 
     <EditText
         android:id="@+id/channelId"
