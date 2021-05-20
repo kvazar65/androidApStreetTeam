@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import ru.streetteam.app.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.streetteam.app.R;
 
-public class MessageAdapter extends BaseAdapter {
+
+public class MessageHistAdapter extends BaseAdapter {
 
     List<Message> messages = new ArrayList<Message>();
     Context context;
 
-    public MessageAdapter(Context context) {
+    public MessageHistAdapter(Context context) {
         this.context = context;
     }
 
@@ -52,34 +52,26 @@ public class MessageAdapter extends BaseAdapter {
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Message message = messages.get(i);
         String[] split = message.getText().split("\\s\\s");
-        if (message.isBelongsToCurrentUser()) {
-            convertView = messageInflater.inflate(R.layout.my_message, null);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
-            holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
-            convertView.setTag(holder);
-            setMsgText(holder, split);
-
-        } else {
-            convertView = messageInflater.inflate(R.layout.their_message, null);
-            holder.avatar = (View) convertView.findViewById(R.id.avatar);
-            holder.name = (TextView) convertView.findViewById(R.id.their_name);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
-            holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
-            convertView.setTag(holder);
-            setMsgText(holder, split);
-            holder.name.setText(message.getMemberData().getName());
-            GradientDrawable drawable = (GradientDrawable) holder.avatar.getBackground();
-            drawable.setColor(Color.parseColor(message.getMemberData().getColor()));
-        }
-
+        convertView = messageInflater.inflate(R.layout.their_message, null);
+        holder.avatar = (View) convertView.findViewById(R.id.avatar);
+        holder.name = (TextView) convertView.findViewById(R.id.their_name);
+        holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+        holder.messageTime = (TextView) convertView.findViewById(R.id.message_time);
+        GradientDrawable drawable = (GradientDrawable) holder.avatar.getBackground();
+        convertView.setTag(holder);
+        setMsgText(holder, split, drawable);
+        //name.setText(message.getMemberData().getName())holder;
+        //drawable.setColor(Color.parseColor(message.getMemberData().getColor()));
         return convertView;
     }
 
-    private void setMsgText(MessageViewHolder holder, String[] split) {
+    private void setMsgText(MessageViewHolder holder, String[] split, GradientDrawable drawable) {
         //0 имя 1 время 3 текст
         if (split.length > 1) {
             holder.messageBody.setText(split[4]);
             holder.messageTime.setText(split[2]);
+            holder.name.setText(split[0]);
+            drawable.setColor(Color.parseColor(split[1]));
         } else {
             holder.messageBody.setText(split[0]);
         }

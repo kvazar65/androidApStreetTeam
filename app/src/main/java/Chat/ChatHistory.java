@@ -33,8 +33,10 @@ public class ChatHistory extends AppCompatActivity implements RoomListener {
 
     private String roomName;
     private String roomTitle;
+    private String name;
+    private String color;
     private Scaledrone scaledrone;
-    private MessageAdapter messageAdapter;
+    private MessageHistAdapter messageAdapter;
     private ListView messagesView;
     private String channelId;
 
@@ -48,15 +50,15 @@ public class ChatHistory extends AppCompatActivity implements RoomListener {
         System.out.println("--------------------------------------------------------------------");
 
 
-        messageAdapter = new MessageAdapter(this);
+        messageAdapter = new MessageHistAdapter(this);
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
-        ChatActivity.MemberData data = new ChatActivity.MemberData("History", "#673AB7");
         Bundle chatInfo = getIntent().getExtras();
         roomTitle = (String) chatInfo.get("roomTitle");
         channelId = (String) chatInfo.get("channelId");
         roomName = (String) chatInfo.get("roomName");
+        ChatActivity.MemberData data = new ChatActivity.MemberData("HIST", getRandomColor());
         scaledrone = new Scaledrone(channelId, data);
         scaledrone.connect(new Listener() {
             @Override
@@ -64,7 +66,7 @@ public class ChatHistory extends AppCompatActivity implements RoomListener {
                 System.out.println("Соединение с Scaledrone открыто ");
                 Room room = scaledrone.subscribe(roomName,
                         ChatHistory.this,
-                        new SubscribeOptions(20));
+                        new SubscribeOptions(10));
                 room.listenToHistoryEvents(new HistoryRoomListener() {
                     @Override
                     public void onHistoryMessage(Room room, com.scaledrone.lib.Message message) {
@@ -128,5 +130,14 @@ public class ChatHistory extends AppCompatActivity implements RoomListener {
         chatInfo.putString("roomTitle", roomTitle);
         intent.putExtras(chatInfo);
         startActivity(intent);
+    }
+
+    private String getRandomColor() {
+        Random r = new Random();
+        StringBuffer sb = new StringBuffer("#");
+        while (sb.length() < 7) {
+            sb.append(Integer.toHexString(r.nextInt()));
+        }
+        return sb.toString().substring(0, 7);
     }
 }

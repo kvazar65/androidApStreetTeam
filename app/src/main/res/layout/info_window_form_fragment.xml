@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="Location title"
+            android:text="Название"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="18sp"
@@ -26,12 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Location type"
+            android:text="Тип"
             android:textAlignment="center" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/goToChat"
         android:layout_width="217dp"
         android:layout_height="40dp"
         android:layout_below="@id/bar"

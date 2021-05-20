@@ -13,9 +13,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LABEL = "label";
     public static final String COLUMN_LATITUDE = "latitude"; //широта
     public static final String COLUMN_LONGITUDE = "longotude"; //долгота
-    public static final String COLUMN_INFO = "info"; //долгота
-    public static final String COLUMN_CHANNEL_ID = "channelId"; //долгота
-    public static final String COLUMN_ROOM_NAME = "roomName"; //долгота
+    public static final String COLUMN_INFO = "info"; //описание
+    public static final String COLUMN_CHANNEL_ID = "channelId"; //id
+    public static final String COLUMN_ROOM_NAME = "roomName"; //имя команты
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA);

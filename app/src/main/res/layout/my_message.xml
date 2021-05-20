@@ -36,7 +36,7 @@
             android:background="@drawable/my_message"
             android:elevation="2dp"
             android:padding="10dp"
-            android:text="Placeholder message"
+            android:text="Сообщение"
             android:textColor="#fff"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/mymessage"

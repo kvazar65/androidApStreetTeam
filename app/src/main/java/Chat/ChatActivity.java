@@ -46,6 +46,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     private ListView messagesView;
     private TextView chatName;
     private String channelId;
+    private MemberData memberData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +63,14 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         chatName = (TextView) findViewById(R.id.chat_name);
         messagesView.setAdapter(messageAdapter);
 
-        MemberData data = new MemberData(getRandomName(), getRandomColor());
+        memberData = new MemberData(getRandomName(), getRandomColor());
 
         Bundle chatInfo = getIntent().getExtras();
         channelId = (String) chatInfo.get("channelId");
         roomName = (String) chatInfo.get("roomName");
         roomTitle = (String) chatInfo.get("roomTitle");
         chatName.setText(roomTitle);
-        scaledrone = new Scaledrone(channelId, data);
+        scaledrone = new Scaledrone(channelId, memberData);
         scaledrone.connect(new Listener() {
             @Override
             public void onOpen() {
@@ -102,14 +103,16 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         }
     }
 
-    private StringBuilder addDateToMsg(String message) {
-        StringBuilder sb = new StringBuilder(message);
+    private String addDateToMsg(String message) {
         SimpleDateFormat formatter = new SimpleDateFormat("d.MM HH:mm  ");
         //formatter.setTimeZone(TimeZone.getTimeZone("UTC+06"));
         Date date = new Date(System.currentTimeMillis());
         date.setHours(date.getHours() + 3);
-        sb.insert(0, formatter.format(date));
-        return sb;
+        return String.format("%s  %s  %s  %s",
+                memberData.name,
+                memberData.color,
+                formatter.format(date),
+                message);
     }
 
     @Override
@@ -146,8 +149,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         String[] nouns = {"Спортсмен", "Бегун", "Прыгун", "Юниор", "Тяжелоатлет", "Шахматист", "Бык", "Новичок", "Отлыниватель", "Арбитр", "Судья", "Фанат", "Пловец", "Чемпион", "Фаворит", "Незнакомец", "Проходимец", "Спринтер"};
         return (
                 adjs[(int) Math.floor(Math.random() * adjs.length)] +
-                        "_" +
-                        nouns[(int) Math.floor(Math.random() * nouns.length)]
+                        " " + nouns[(int) Math.floor(Math.random() * nouns.length)]
         );
     }
 

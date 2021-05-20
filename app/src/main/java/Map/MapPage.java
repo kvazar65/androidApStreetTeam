@@ -304,7 +304,6 @@ public class MapPage extends AppCompatActivity implements
     protected void onResumeFragments() {
         super.onResumeFragments();
         if (permissionDenied) {
-            // Permission was not granted, display error dialog.
             showMissingPermissionError();
             permissionDenied = false;
         }
@@ -315,9 +314,7 @@ public class MapPage extends AppCompatActivity implements
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
-    /*
-     * Часть кода отвечающуая за определение собственной локации. Конец
-     */
+
     @Override
     public void onMapClick(final LatLng point) {
     }

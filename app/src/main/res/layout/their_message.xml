@@ -17,8 +17,8 @@
 
         <View
             android:id="@+id/avatar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
 
             android:layout_marginLeft="1dp"
             android:layout_marginTop="1dp"
@@ -29,7 +29,7 @@
             android:id="@+id/their_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rose"
+            android:text="Имя"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
             android:elevation="2dp"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            android:text="Their message"
+            android:text="Чужое сообщение"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
 
@@ -61,7 +61,7 @@
             android:padding="10dp"
             android:text="15.06 17:23"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/message_body" />
 

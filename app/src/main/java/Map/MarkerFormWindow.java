@@ -57,6 +57,6 @@ public class MarkerFormWindow extends Fragment {
                 startActivity(intent);
             }
         };
-        view.findViewById(R.id.button1).setOnClickListener(onClickListener);
+        view.findViewById(R.id.goToChat).setOnClickListener(onClickListener);
     }
 }
